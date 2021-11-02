@@ -83,4 +83,12 @@ class UserTest < ActiveSupport::TestCase
     test_user.save!
     assert_not @user.valid?
   end
+
+  def test_user_should_have_valid_role
+    valid_user = %w[standard administrator]
+    valid_user.each do |role|
+      @user.role = role
+      assert @user.valid?
+    end
+  end
 end
