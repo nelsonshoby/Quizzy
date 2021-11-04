@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resource :sessions, only: :create
   end
   root "home#index"
+  # get "/session", to: "session#create"
   get "*path", to: "home#index", via: :all
 
 end
