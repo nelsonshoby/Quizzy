@@ -8,7 +8,6 @@ ruby "3.0.2"
 
 gem "rails", "~> 6.1.4", ">= 6.1.4.1"
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
 
 # Application server
 gem "puma", "~> 5.0"
@@ -52,3 +51,7 @@ end
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "react-rails"
+
+gem "sqlite3", "~> 1.4", group: [:development, :test]
+
+gem "pg", group: [:production]
