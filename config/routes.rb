@@ -3,10 +3,9 @@
 Rails.application.routes.draw do
   defaults format: :json do
     resources :home, only: :index
-    resource :sessions, only: :create
+    resource :sessions, only: %i[create destroy]
   end
   root "home#index"
-  # get "/session", to: "session#create"
   get "*path", to: "home#index", via: :all
 
 end

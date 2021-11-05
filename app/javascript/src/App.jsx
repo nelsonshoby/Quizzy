@@ -7,8 +7,10 @@ import { ToastContainer } from "react-toastify";
 import { setAuthHeaders } from "apis/axios";
 import { registerIntercepts } from "apis/axios";
 import { initializeLogger } from "common/logger";
+import PrivateRoute from "components/Common/PrivateRoute";
 import Login from "components/Login";
 
+import Home from "./components/Home";
 import { getFromLocalStorage } from "./helpers/storage";
 
 const App = () => {
@@ -24,15 +26,21 @@ const App = () => {
   if (loading) {
     return <h1>Loading...</h1>;
   }
-  isLoggedIn;
+
   loading;
   return (
     <Router>
       <ToastContainer />
       <Switch>
-        <Route exact path="/" render={() => <div>Home</div>} />
+        {/* <Route exact path="/" render={() => <div>Home</div>} /> */}
         <Route exact path="/about" render={() => <div>About</div>} />
         <Route exact path="/login" component={Login} />
+        <PrivateRoute
+          path="/"
+          redirectRoute="/login"
+          condition={isLoggedIn}
+          component={Home}
+        />
       </Switch>
     </Router>
   );
