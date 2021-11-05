@@ -18,6 +18,9 @@ function Home() {
           iconPosition="left"
         />
       </div>
+      <div className="flex justify-center items-center ">
+        <h2 className="mt-40">You have not created any quiz.</h2>
+      </div>
     </div>
   );
 }
