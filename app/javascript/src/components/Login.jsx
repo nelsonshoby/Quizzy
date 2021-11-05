@@ -21,7 +21,7 @@ const Login = () => {
       const response = await authApi.login({ login: { email, password } });
       setToLocalStorage({
         authToken: response.data.authentication_token,
-        email,
+        authEmail: response.data.email,
         userId: response.data.id,
         userName: response.data.first_name,
       });
@@ -38,6 +38,7 @@ const Login = () => {
       <div className="border-b-2">
         <Header title="Quizzy" className="ml-10" />
       </div>
+
       <div className="flex items-center justify-center mt-20">
         <div className="w-full max-w-md m-8">
           <h2
@@ -56,6 +57,7 @@ const Login = () => {
               />
               <Input
                 value={password}
+                type="password"
                 label="Password"
                 placeholder="Enter Password"
                 className="py-4"
