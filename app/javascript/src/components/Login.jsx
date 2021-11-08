@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Input } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Header } from "@bigbinary/neetoui/v2/layouts";
+import Logger from "js-logger";
 
 import authApi from "apis/auth";
 
@@ -29,7 +30,7 @@ const Login = () => {
       setLoading(false);
       window.location.href = "/";
     } catch (error) {
-      logger.error(error);
+      Logger.error(error);
       setLoading(false);
     }
   };

@@ -31,4 +31,17 @@ class QuizTest < ActiveSupport::TestCase
     assert_not @quiz.valid?
     assert_includes @quiz.errors.full_messages, "User must exist"
   end
+
+  def test_quiz_count_increases_on_saving
+    assert_difference ["Quiz.count"] do
+      @quiz.save
+    end
+  end
+
+  def test_quiz_count_decreases_on_deleting
+    @quiz.save
+    assert_difference ["Quiz.count"], -1 do
+      @quiz.delete
+    end
+  end
 end

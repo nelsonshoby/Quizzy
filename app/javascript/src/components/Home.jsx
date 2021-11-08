@@ -28,9 +28,9 @@ function Home() {
       <NavBar />
       {clicked ? (
         <>
-          <div className="flex justify-between pt-10 pr-20">
+          <div className="flex justify-between pt-10 pr-40">
             {data.length != 0 ? (
-              <Typography style="h2" className="pl-32">
+              <Typography style="h2" className="pl-56">
                 List of quizzes
               </Typography>
             ) : (
@@ -45,7 +45,7 @@ function Home() {
             />
           </div>
           {data.length != 0 ? (
-            <div className="pt-10 pr-20 pl-32">
+            <div className="pt-10 pr-40 pl-56 ">
               <Table data={data} fetchquiz={fetchquiz}></Table>
             </div>
           ) : (
