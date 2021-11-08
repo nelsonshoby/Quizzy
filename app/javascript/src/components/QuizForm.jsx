@@ -8,18 +8,16 @@ import { toast } from "react-toastify";
 import quizzesApi from "apis/quizzes";
 
 import { TOASTR_OPTIONS } from "../constants";
-import { getFromLocalStorage } from "../helpers/storage";
 
 function QuizForm({ setClicked }) {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const userId = getFromLocalStorage("authUserId");
   const handleSubmit = async event => {
     event.preventDefault();
     setName(name.trim());
     if (name.length != 0) {
       try {
-        await quizzesApi.create({ quiz: { name, user_id: userId } });
+        await quizzesApi.create({ quiz: { name } });
         setLoading(false);
         setClicked(true);
       } catch (error) {
