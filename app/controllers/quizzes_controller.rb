@@ -1,19 +1,57 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
+  before_action :authenticate_user_using_x_auth_token
+  def index
+    @quiz = policy_scope(Quiz)
+  end
+
   def create
-    quiz = Quiz.new(task_params)
+    quiz = Quiz.new(quiz_params)
+    authorize quiz
     if quiz.save!
-      render status: :ok, json: { notice: "Quiz was successfully created" }
+      render status: :ok, json: {
+        notice: t("successfully_created", entity: "quiz")
+      }
     else
       errors = quiz.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { error: errors }
     end
   end
 
+  def update
+    puts params[:id]
+    @quiz = Quiz.find_by(id: params[:id])
+    authorize @quiz
+    if @quiz.update(quiz_params)
+      render status: :ok, json: {
+        notice: t("successfully_updated", entity: "quiz")
+      }
+    else
+      errors = @quiz.errors.full_messages.to_sentence
+      render status: :unprocessable_entity, json: { error: errors }
+    end
+  end
+
+  def destroy
+    @quiz = Quiz.find_by(id: params[:id])
+    puts @quiz
+    puts params[:id]
+    authorize @quiz
+    if @quiz.destroy
+      render status: :ok, json: {
+        notice: t("successfully_destroyed", entity: "quiz")
+      }
+
+    else
+      render status: :unprocessable_entity,
+        json: { error: @quiz.errors.full_messages.to_sentence }
+    end
+  end
+
   private
 
-    def task_params
+    def quiz_params
       params.require(:quiz).permit(:name, :user_id)
     end
 end

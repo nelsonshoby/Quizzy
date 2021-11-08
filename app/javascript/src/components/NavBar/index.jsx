@@ -2,6 +2,7 @@ import React from "react";
 
 import { Button } from "@bigbinary/neetoui/v2";
 import { Header } from "@bigbinary/neetoui/v2/layouts";
+import Logger from "js-logger";
 import { resetAuthTokens } from "src/apis/axios";
 
 import authApi from "apis/auth";
@@ -21,7 +22,7 @@ const NavBar = () => {
       resetAuthTokens();
       window.location.href = "/login";
     } catch (error) {
-      logger.error(error);
+      Logger.error(error);
     }
   };
   return (
