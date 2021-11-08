@@ -25,7 +25,7 @@ class QuizPolicy
   end
 
   def destroy?
-    task.user_id == user.id
+    quiz.user_id == user.id
   end
 
   class Scope

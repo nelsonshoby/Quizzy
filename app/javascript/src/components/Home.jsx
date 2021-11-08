@@ -46,7 +46,7 @@ function Home() {
           </div>
           {data.length != 0 ? (
             <div className="pt-10 pr-20 pl-32">
-              <Table data={data}></Table>
+              <Table data={data} fetchquiz={fetchquiz}></Table>
             </div>
           ) : (
             <div className="flex justify-center items-center ">

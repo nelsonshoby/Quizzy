@@ -17,7 +17,7 @@ function QuizForm({ setClicked }) {
   const handleSubmit = async event => {
     event.preventDefault();
     setName(name.trim());
-    if (name) {
+    if (name.length != 0) {
       try {
         await quizzesApi.create({ quiz: { name, user_id: userId } });
         setLoading(false);
