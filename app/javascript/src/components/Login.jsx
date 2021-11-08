@@ -67,7 +67,6 @@ const Login = () => {
                 type="submit"
                 className="mt-4"
                 label="Submit"
-                onClick={function noRefCheck() {}}
                 style="primary"
               />
             </form>
