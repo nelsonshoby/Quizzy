@@ -3,7 +3,7 @@
 class QuizzesController < ApplicationController
   before_action :authenticate_user_using_x_auth_token
   def index
-    @quiz = policy_scope(Quiz)
+    @quiz = policy_scope(Quiz).order("created_at DESC")
   end
 
   def create
