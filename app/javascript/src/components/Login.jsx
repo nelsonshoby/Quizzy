@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Input } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Header } from "@bigbinary/neetoui/v2/layouts";
+import Logger from "js-logger";
 
 import authApi from "apis/auth";
 
@@ -23,13 +24,13 @@ const Login = () => {
         authToken: response.data.authentication_token,
         authEmail: response.data.email,
         userId: response.data.id,
-        userName: response.data.first_name,
+        userName: response.data.first_name + " " + response.data.last_name,
       });
       setAuthHeaders();
       setLoading(false);
       window.location.href = "/";
     } catch (error) {
-      logger.error(error);
+      Logger.error(error);
       setLoading(false);
     }
   };
@@ -67,7 +68,6 @@ const Login = () => {
                 type="submit"
                 className="mt-4"
                 label="Submit"
-                onClick={function noRefCheck() {}}
                 style="primary"
               />
             </form>
