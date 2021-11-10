@@ -109,8 +109,7 @@ function Table({ data, fetchquiz }) {
                         <div className="grid grid-cols-2">
                           <Link
                             to={{
-                              pathname: `./quizshowpage`,
-                              param: row.original.name,
+                              pathname: `./quizShowpage/${row.original.id}/show`,
                             }}
                           >
                             {cell.render("Cell")}

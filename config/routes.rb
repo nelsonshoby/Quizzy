@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   defaults format: :json do
     resources :home, only: :index
     resource :sessions, only: %i[create destroy]
-    resources :quizzes, only: [:create, :index, :update, :destroy], param: :id
+    resources :quizzes, only: [:create, :index, :update, :destroy, :show], param: :id
   end
   root "home#index"
   get "*path", to: "home#index", via: :all

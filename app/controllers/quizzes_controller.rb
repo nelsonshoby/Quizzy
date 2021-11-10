@@ -2,6 +2,8 @@
 
 class QuizzesController < ApplicationController
   before_action :authenticate_user_using_x_auth_token
+  before_action :load_quiz, only: [:show]
+
   def index
     @quiz = policy_scope(Quiz).order("created_at DESC")
   end
@@ -17,6 +19,10 @@ class QuizzesController < ApplicationController
       errors = quiz.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { error: errors }
     end
+  end
+
+  def show
+    render
   end
 
   def update
@@ -50,6 +56,13 @@ class QuizzesController < ApplicationController
   end
 
   private
+
+    def load_quiz
+      @quiz = Quiz.find_by(id: params[:id])
+      unless @quiz
+        render status: :not_found, json: { error: "Quiz not found" }
+      end
+    end
 
     def quiz_params
       params.require(:quiz).permit(:name)
