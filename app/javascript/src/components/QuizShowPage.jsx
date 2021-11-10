@@ -22,6 +22,9 @@ function QuizShowPage(props) {
           iconPosition="left"
         />
       </div>
+      <div className="flex justify-center items-center ">
+        <h2 className="mt-40">There are no questions in this quiz.</h2>
+      </div>
     </div>
   );
 }

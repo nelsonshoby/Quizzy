@@ -1,6 +1,6 @@
 export const COLUMNS = [
   {
-    Headers: "Quiz Name",
+    Headers: "Quizzes",
     accessor: "name",
   },
 ];
