@@ -11,6 +11,7 @@ import PrivateRoute from "components/Common/PrivateRoute";
 import Login from "components/Login";
 
 import Home from "./components/Home";
+import QuizShowPage from "./components/QuizShowPage";
 import { getFromLocalStorage } from "./helpers/storage";
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
       <Switch>
         <Route exact path="/about" render={() => <div>About</div>} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/quizshowpage" component={QuizShowPage} />
         <PrivateRoute
           path="/"
           redirectRoute="/login"

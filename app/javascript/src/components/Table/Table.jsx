@@ -5,6 +5,7 @@ import { Button } from "@bigbinary/neetoui/v2";
 import { Modal } from "@bigbinary/neetoui/v2";
 import { Typography } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
+import { Link } from "react-router-dom";
 import { useTable } from "react-table";
 import { toast } from "react-toastify";
 
@@ -79,9 +80,12 @@ function Table({ data, fetchquiz }) {
                         <div className="grid grid-cols-2">
                           <Input
                             placeholder={"Type the new name"}
+                            value={title}
                             className="outline-none"
                             autoFocus="on"
-                            onChange={e => setTitle(e.target.value.trim())}
+                            onChange={e => {
+                              setTitle(e.target.value.trim());
+                            }}
                           />
 
                           <div className="inline place-self-end space-x-8">
@@ -103,13 +107,24 @@ function Table({ data, fetchquiz }) {
                     ) : (
                       <>
                         <div className="grid grid-cols-2">
-                          {cell.render("Cell")}
+                          <Link
+                            to={{
+                              pathname: `./quizshowpage`,
+                              param: row.original.name,
+                            }}
+                          >
+                            {cell.render("Cell")}
+                          </Link>
+
                           <div className="inline float-right space-x-8 place-self-end">
                             <Button
                               label="Edit"
                               style="secondary"
                               size="large"
-                              onClick={() => setEditableId(String(row.id))}
+                              onClick={() => {
+                                setTitle(row.original.name);
+                                setEditableId(String(row.id));
+                              }}
                             />
 
                             <Button
@@ -118,32 +133,34 @@ function Table({ data, fetchquiz }) {
                               size="large"
                               onClick={() => setShowModal(row.original.id)}
                             />
-                            {showModal && (
-                              <Modal isOpen={showModal}>
-                                <Modal.Header>
-                                  <Typography style="h2">
-                                    Are you sure to delete this item?
-                                  </Typography>
-                                </Modal.Header>
 
-                                <Modal.Footer className="space-x-2">
-                                  <Button
-                                    label="Continue"
-                                    onClick={() => {
-                                      handleDelete(showModal);
-                                      setShowModal(false);
-                                    }}
-                                    size="large"
-                                  />
-                                  <Button
-                                    style="text"
-                                    label="Cancel"
-                                    onClick={() => setShowModal(false)}
-                                    size="large"
-                                  />
-                                </Modal.Footer>
-                              </Modal>
-                            )}
+                            <Modal
+                              isOpen={showModal}
+                              onClose={() => setShowModal(false)}
+                            >
+                              <Modal.Header>
+                                <Typography style="h2">
+                                  Are you sure to delete this item?
+                                </Typography>
+                              </Modal.Header>
+
+                              <Modal.Footer className="space-x-2">
+                                <Button
+                                  label="Continue"
+                                  onClick={() => {
+                                    handleDelete(showModal);
+                                    setShowModal(false);
+                                  }}
+                                  size="large"
+                                />
+                                <Button
+                                  style="text"
+                                  label="Cancel"
+                                  onClick={() => setShowModal(false)}
+                                  size="large"
+                                />
+                              </Modal.Footer>
+                            </Modal>
                           </div>
                         </div>
                       </>
