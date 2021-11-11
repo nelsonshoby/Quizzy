@@ -13,6 +13,11 @@ import NavBar from "./NavBar";
 import quizzesApi from "../apis/quizzes";
 
 function QuestionForm() {
+  const [options, setOption] = useState(2);
+  const [optionsObject, setOptionsObject] = useState([]);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState(null);
+
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const fetchQuizDetails = async () => {
@@ -27,126 +32,94 @@ function QuestionForm() {
     fetchQuizDetails();
   }, []);
 
-  const [options, setOption] = useState([]);
-  const appendInput = val => {
-    setOption([
-      ...options,
-      { label: "Option" + " " + val, placeholder: "Option" + " " + val },
-    ]);
+  const handleChange = (e, index) => {
+    const data = optionsObject;
+    if (data?.[index] === answer?.value && answer != null) {
+      setAnswer({ label: e.target.value, value: e.target.value });
+    }
+    data[index] = e.target.value;
+    setOptionsObject([...data]);
   };
-
-  const handleRemove = index => {
-    const values = [...options];
-    values.splice(index, 1);
-    setOption(values);
+  const handleDelete = (e, index) => {
+    const data = optionsObject;
+    if (data[index] === answer?.value) {
+      setAnswer(null);
+    }
+    data.splice(index, 1);
+    setOptionsObject([...data]);
+    setOption(prev => prev - 1);
   };
 
   return (
     <div>
       <NavBar />
-      <form>
-        <div className="flex-col items-center justify-center mt-20 w-full max-w-md m-8 ml-24">
-          <Typography style="h2" className="pt-8">
-            {title}
-          </Typography>
-          <Input
-            label="Question"
-            className="pt-5"
-            placeholder="Enter question"
-            required="required"
-          />
-          <Input
-            label="Option 1"
-            className="pt-8"
-            placeholder="Option 1"
-            required="required"
-          />
-          <Input
-            label="Option 2"
-            className="pt-8"
-            placeholder="Option 2"
-            required="required"
-          />
-          {options.map((option, index) => (
-            <div key={index}>
-              <Input
-                label={option.label}
-                className="pt-8"
-                placeholder={option.placeholder}
-                required="required"
-              />
-              <Button
-                label="Delete"
-                icon={Delete}
-                style="secondary"
-                iconPosition="left"
-                onClick={() => handleRemove(index)}
-              />
-              {Object.keys(options).length == 1 && (
-                <Button
-                  className="pt-8 ml-2"
-                  label="Add"
-                  icon={Plus}
-                  style="secondary"
-                  iconPosition="left"
-                  onClick={() => appendInput(String(4))}
-                />
-              )}
-            </div>
-          ))}
-
-          {Object.keys(options).length == 0 && (
-            <Button
-              className="pt-8"
-              label="Add option"
-              icon={Plus}
-              style="secondary"
-              iconPosition="left"
-              onClick={() => appendInput(String(3))}
-            />
-          )}
-
-          <div className="p-4 mb-2">
-            <Select
+      <div className=" ml-24 ">
+        <form>
+          <div className="flex-col items-center justify-center mt-20 w-full max-w-md m-8 ml-24 ">
+            <Typography style="h2" className="pt-8">
+              {title}
+            </Typography>
+            <Input
+              label="Question"
+              value={question}
               required="required"
-              className="pt-8"
-              defaultValue={{
-                label: "Value One",
-                value: "value3",
+              className="mt-2"
+              placeholder="Enter question"
+              onChange={e => setQuestion(e.target.value)}
+            />
+            {[...Array(options)].map((ele, index) => (
+              <div key={index} className="flex justify-between">
+                <Input
+                  className="mt-2"
+                  required="required"
+                  label={`option ${index + 1}`}
+                  placeholder={`option ${index + 1}`}
+                  value={optionsObject[index]}
+                  onChange={e => handleChange(e, index)}
+                />
+                {index > 1 && (
+                  <Button
+                    className="mt-6 ml-1 "
+                    icon={Delete}
+                    onClick={e => handleDelete(e, index)}
+                    style="secondary"
+                  />
+                )}
+              </div>
+            ))}
+            {options < 4 && (
+              <Button
+                className="mt-2"
+                label="Add"
+                icon={Plus}
+                onClick={() => {
+                  setOption(prev => prev + 1);
+                }}
+                style="secondary"
+              />
+            )}
+            <Select
+              label="Select"
+              value={answer}
+              className="mt-2"
+              onChange={e => {
+                setAnswer(e);
               }}
-              isClearable
-              isSearchable
-              label="Correct Answer"
-              name="ValueList"
-              options={[
-                {
-                  label: "Value One",
-                  value: "value1",
-                },
-                {
-                  label: "Value Two",
-                  value: "value2",
-                },
-                {
-                  label: "Value Three",
-                  value: "value3",
-                },
-                {
-                  label: "Value Four",
-                  value: "value4",
-                },
-              ]}
-              placeholder="Select an Option"
+              options={optionsObject.map(ans => ({
+                label: ans,
+                value: ans,
+              }))}
+              placeholder="Select an Answer"
+            />
+            <Button
+              label="Submit"
+              type="submit"
+              style="secondary"
+              className="mt-2"
             />
           </div>
-          <Button
-            label="Submit"
-            type="submit"
-            style="secondary"
-            className="pt-8"
-          />
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
