@@ -7,10 +7,13 @@ import { Button } from "@bigbinary/neetoui/v2";
 import { Select } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import NavBar from "./NavBar";
 
+import questionApi from "../apis/question";
 import quizzesApi from "../apis/quizzes";
+import { TOASTR_OPTIONS } from "../constants";
 
 function QuestionForm() {
   const [options, setOption] = useState(2);
@@ -40,6 +43,7 @@ function QuestionForm() {
     data[index] = e.target.value;
     setOptionsObject([...data]);
   };
+
   const handleDelete = (e, index) => {
     const data = optionsObject;
     if (data[index] === answer?.value) {
@@ -50,11 +54,31 @@ function QuestionForm() {
     setOption(prev => prev - 1);
   };
 
+  const handleSubmit = async event => {
+    event.preventDefault();
+    setQuestion(question.trim());
+    if (question.length != 0) {
+      try {
+        await questionApi.create({
+          question: { description: question, quiz_id: id },
+        });
+      } catch (error) {
+        Logger.error(error);
+      }
+    } else {
+      toast.error("Question name can't be empty", TOASTR_OPTIONS);
+    }
+
+    // const arrayLength = optionsObject.length
+
+    // const setLength  = new Set(optionsObject).size
+  };
+
   return (
     <div>
       <NavBar />
       <div className=" ml-24 ">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="flex-col items-center justify-center mt-20 w-full max-w-md m-8 ml-24 ">
             <Typography style="h2" className="pt-8">
               {title}
@@ -101,12 +125,13 @@ function QuestionForm() {
             <Select
               label="Select"
               value={answer}
+              isSearchable={false}
               className="mt-2"
               onChange={e => {
                 setAnswer(e);
               }}
-              options={optionsObject.map(ans => ({
-                label: ans,
+              options={optionsObject.map((ans, index) => ({
+                label: `option ${index + 1}`,
                 value: ans,
               }))}
               placeholder="Select an Answer"
