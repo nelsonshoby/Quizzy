@@ -54,24 +54,36 @@ function QuestionForm() {
     setOption(prev => prev - 1);
   };
 
+  const arraySize = optionsObject.length;
+  const setSize = new Set(optionsObject).size;
+
   const handleSubmit = async event => {
     event.preventDefault();
     setQuestion(question.trim());
-    if (question.length != 0) {
+    if (arraySize != setSize) {
+      toast.error("Options cant be same", TOASTR_OPTIONS);
+    } else if (question.length != 0 && answer.length != 0) {
+      const output = optionsObject.map(ele => ({
+        content: ele,
+        result: ele === answer,
+      }));
+
       try {
         await questionApi.create({
-          question: { description: question, quiz_id: id },
+          question: {
+            description: question,
+            quiz_id: id,
+            options_attributes: output,
+          },
         });
+
+        window.location.href = `/quizShowpage/${id}/show`;
       } catch (error) {
         Logger.error(error);
       }
     } else {
       toast.error("Question name can't be empty", TOASTR_OPTIONS);
     }
-
-    // const arrayLength = optionsObject.length
-
-    // const setLength  = new Set(optionsObject).size
   };
 
   return (
@@ -123,6 +135,7 @@ function QuestionForm() {
               />
             )}
             <Select
+              required
               label="Select"
               value={answer}
               isSearchable={false}

@@ -20,11 +20,11 @@ class QuestionsController < ApplicationController
     def load_quiz
       @quiz = Quiz.find_by(id: question_params[:quiz_id])
       unless @quiz
-        render status: :not_found, json: { error: t("not_found", entity: "Task") }
+        render status: :not_found, json: { error: t("not_found", entity: "Quiz") }
       end
     end
 
     def question_params
-      params.require(:question).permit(:description, :quiz_id)
+      params.require(:question).permit(:description, :quiz_id, options_attributes: [:content, :result])
     end
 end
