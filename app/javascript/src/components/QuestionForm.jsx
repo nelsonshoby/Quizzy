@@ -65,7 +65,7 @@ function QuestionForm() {
     } else if (question.length != 0 && answer.length != 0) {
       const output = optionsObject.map(ele => ({
         content: ele,
-        result: ele === answer,
+        result: ele === answer.value,
       }));
 
       try {

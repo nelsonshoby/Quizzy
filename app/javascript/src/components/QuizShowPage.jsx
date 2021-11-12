@@ -7,15 +7,18 @@ import Logger from "js-logger";
 import { Link, useParams } from "react-router-dom";
 
 import NavBar from "./NavBar";
+import QuestionsList from "./QuestionsList";
 
 import quizzesApi from "../apis/quizzes";
 
 function QuizShowPage() {
   const { id } = useParams();
   const [title, setTitle] = useState("");
+  const [questionData, setQuestionData] = useState([]);
   const fetchQuizDetails = async () => {
     try {
       const response = await quizzesApi.show(id);
+      setQuestionData(response.data.quiz.questions);
       setTitle(response.data.quiz.name);
     } catch (error) {
       Logger.error(error);
@@ -24,6 +27,7 @@ function QuizShowPage() {
   useEffect(() => {
     fetchQuizDetails();
   }, []);
+
   return (
     <div>
       <NavBar />
@@ -45,9 +49,17 @@ function QuizShowPage() {
           />
         </Link>
       </div>
-      <div className="flex justify-center items-center ">
-        <h2 className="mt-40">There are no questions in this quiz.</h2>
-      </div>
+
+      {questionData.length !== 0 ? (
+        <QuestionsList
+          questionData={questionData}
+          fetchQuizDetails={fetchQuizDetails}
+        />
+      ) : (
+        <div className="flex justify-center items-center ">
+          <h2 className="mt-40">There are no questions in this quiz.</h2>
+        </div>
+      )}
     </div>
   );
 }
