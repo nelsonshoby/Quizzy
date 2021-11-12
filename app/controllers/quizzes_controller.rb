@@ -26,7 +26,6 @@ class QuizzesController < ApplicationController
   end
 
   def update
-    puts params[:id]
     @quiz = Quiz.find_by(id: params[:id])
     authorize @quiz
     if @quiz.update(quiz_params)
@@ -41,8 +40,6 @@ class QuizzesController < ApplicationController
 
   def destroy
     @quiz = Quiz.find_by(id: params[:id])
-    puts @quiz
-    puts params[:id]
     authorize @quiz
     if @quiz.destroy
       render status: :ok, json: {
