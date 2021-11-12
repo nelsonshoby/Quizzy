@@ -2,6 +2,8 @@
 
 class QuizzesController < ApplicationController
   before_action :authenticate_user_using_x_auth_token
+  before_action :load_quiz, only: [:show]
+
   def index
     @quiz = policy_scope(Quiz).order("created_at DESC")
   end
@@ -19,8 +21,11 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def show
+    render
+  end
+
   def update
-    puts params[:id]
     @quiz = Quiz.find_by(id: params[:id])
     authorize @quiz
     if @quiz.update(quiz_params)
@@ -35,8 +40,6 @@ class QuizzesController < ApplicationController
 
   def destroy
     @quiz = Quiz.find_by(id: params[:id])
-    puts @quiz
-    puts params[:id]
     authorize @quiz
     if @quiz.destroy
       render status: :ok, json: {
@@ -50,6 +53,13 @@ class QuizzesController < ApplicationController
   end
 
   private
+
+    def load_quiz
+      @quiz = Quiz.find_by(id: params[:id])
+      unless @quiz
+        render status: :not_found, json: { error: "Quiz not found" }
+      end
+    end
 
     def quiz_params
       params.require(:quiz).permit(:name)

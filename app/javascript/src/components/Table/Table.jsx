@@ -2,8 +2,6 @@ import React, { useMemo, useState } from "react";
 
 import { Input } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
-import { Modal } from "@bigbinary/neetoui/v2";
-import { Typography } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { Link } from "react-router-dom";
 import { useTable } from "react-table";
@@ -15,8 +13,9 @@ import { COLUMNS } from "./Column";
 import "./Table.css";
 
 import { TOASTR_OPTIONS } from "../../constants";
+import ModalComponent from "../ModalComponent";
 
-function Table({ data, fetchquiz }) {
+function Table({ data, fetchQuiz }) {
   const [showModal, setShowModal] = useState(false);
   const [editableId, setEditableId] = useState("");
   const [title, setTitle] = useState("");
@@ -33,7 +32,7 @@ function Table({ data, fetchquiz }) {
           id,
           payload: { quiz: { name: title, user_id: data[0].user_id } },
         });
-        fetchquiz();
+        fetchQuiz();
         setEditableId(null);
       } catch (error) {
         Logger.error(error);
@@ -46,7 +45,7 @@ function Table({ data, fetchquiz }) {
   const handleDelete = async id => {
     try {
       await quizzesApi.destroy(id);
-      fetchquiz();
+      fetchQuiz();
     } catch (error) {
       Logger.error(error);
     }
@@ -109,8 +108,7 @@ function Table({ data, fetchquiz }) {
                         <div className="grid grid-cols-2">
                           <Link
                             to={{
-                              pathname: `./quizshowpage`,
-                              param: row.original.name,
+                              pathname: `./quizShowpage/${row.original.id}/show`,
                             }}
                           >
                             {cell.render("Cell")}
@@ -134,33 +132,11 @@ function Table({ data, fetchquiz }) {
                               onClick={() => setShowModal(row.original.id)}
                             />
 
-                            <Modal
-                              isOpen={showModal}
-                              onClose={() => setShowModal(false)}
-                            >
-                              <Modal.Header>
-                                <Typography style="h2">
-                                  Are you sure to delete this item?
-                                </Typography>
-                              </Modal.Header>
-
-                              <Modal.Footer className="space-x-2">
-                                <Button
-                                  label="Continue"
-                                  onClick={() => {
-                                    handleDelete(showModal);
-                                    setShowModal(false);
-                                  }}
-                                  size="large"
-                                />
-                                <Button
-                                  style="text"
-                                  label="Cancel"
-                                  onClick={() => setShowModal(false)}
-                                  size="large"
-                                />
-                              </Modal.Footer>
-                            </Modal>
+                            <ModalComponent
+                              showModal={showModal}
+                              setShowModal={setShowModal}
+                              handleDelete={handleDelete}
+                            />
                           </div>
                         </div>
                       </>
