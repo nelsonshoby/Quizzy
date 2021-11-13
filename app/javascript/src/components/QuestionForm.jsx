@@ -1,91 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Plus, Delete } from "@bigbinary/neeto-icons";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Input } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Select } from "@bigbinary/neetoui/v2";
-import Logger from "js-logger";
-import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import NavBar from "./NavBar";
 
-import questionApi from "../apis/question";
-import quizzesApi from "../apis/quizzes";
-import { TOASTR_OPTIONS } from "../constants";
-
-function QuestionForm() {
-  const [options, setOption] = useState(2);
-  const [optionsObject, setOptionsObject] = useState([]);
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState(null);
-
-  const { id } = useParams();
-  const [title, setTitle] = useState("");
-  const fetchQuizDetails = async () => {
-    try {
-      const response = await quizzesApi.show(id);
-      setTitle(response.data.quiz.name);
-    } catch (error) {
-      Logger.error(error);
-    }
-  };
-  useEffect(() => {
-    fetchQuizDetails();
-  }, []);
-
-  const handleChange = (e, index) => {
-    const data = optionsObject;
-    if (data?.[index] === answer?.value && answer != null) {
-      setAnswer({ label: e.target.value, value: e.target.value });
-    }
-    data[index] = e.target.value;
-    setOptionsObject([...data]);
-  };
-
-  const handleDelete = (e, index) => {
-    const data = optionsObject;
-    if (data[index] === answer?.value) {
-      setAnswer(null);
-    }
-    data.splice(index, 1);
-    setOptionsObject([...data]);
-    setOption(prev => prev - 1);
-  };
-
-  const arraySize = optionsObject.length;
-  const setSize = new Set(optionsObject).size;
-
-  const handleSubmit = async event => {
-    event.preventDefault();
-    setQuestion(question.trim());
-    if (arraySize != setSize) {
-      toast.error("Options cant be same", TOASTR_OPTIONS);
-    } else if (question.length != 0 && answer.length != 0) {
-      const output = optionsObject.map(ele => ({
-        content: ele,
-        result: ele === answer,
-      }));
-
-      try {
-        await questionApi.create({
-          question: {
-            description: question,
-            quiz_id: id,
-            options_attributes: output,
-          },
-        });
-
-        window.location.href = `/quizShowpage/${id}/show`;
-      } catch (error) {
-        Logger.error(error);
-      }
-    } else {
-      toast.error("Question name can't be empty", TOASTR_OPTIONS);
-    }
-  };
-
+function QuestionForm({
+  handleSubmit,
+  title,
+  question,
+  setQuestion,
+  options,
+  handleChange,
+  handleDelete,
+  setOption,
+  answer,
+  setAnswer,
+  optionsObject,
+}) {
   return (
     <div>
       <NavBar />
