@@ -38,7 +38,7 @@ function QuizShowPage() {
 
         <Link
           to={{
-            pathname: `/questionForm/${id}`,
+            pathname: `/CreateQuestion/${id}`,
           }}
         >
           <Button

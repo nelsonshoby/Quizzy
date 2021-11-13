@@ -10,8 +10,9 @@ import { initializeLogger } from "common/logger";
 import PrivateRoute from "components/Common/PrivateRoute";
 import Login from "components/Login";
 
+import CreateQuestion from "./components/CreateQuestion";
+import EditQuestion from "./components/EditQuestion";
 import Home from "./components/Home";
-import QuestionForm from "./components/QuestionForm";
 import QuizForm from "./components/QuizForm";
 import QuizShowPage from "./components/QuizShowPage";
 import { getFromLocalStorage } from "./helpers/storage";
@@ -38,7 +39,8 @@ const App = () => {
         <Route exact path="/about" render={() => <div>About</div>} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/quizShowpage/:id/show" component={QuizShowPage} />
-        <Route exact path="/questionForm/:id" component={QuestionForm} />
+        <Route exact path="/CreateQuestion/:id" component={CreateQuestion} />
+        <Route exact path="/EditQuestion/:id" component={EditQuestion} />
         <Route exact path="/quiz/new" component={QuizForm} />
         <PrivateRoute
           path="/"

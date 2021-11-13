@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import { Check } from "@bigbinary/neeto-icons";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
@@ -18,6 +19,10 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
       Logger.error(error);
     }
   };
+
+  const handleUpdate = id => {
+    window.location.href = `/EditQuestion/${id}`;
+  };
   return (
     <div className="pt-10 pr-40 pl-56">
       {questionData.map((question, index) => (
@@ -33,7 +38,12 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
             </div>
 
             <div className="flex">
-              <Button className="pt-2" label="Edit" style="secondary" />
+              <Button
+                className="pt-2"
+                label="Edit"
+                style="secondary"
+                onClick={() => handleUpdate(question.id)}
+              />
               <Button
                 className="pt-2 ml-8"
                 label="Delete"
@@ -57,7 +67,10 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
                   <div className="flex">
                     <div>{option.content}</div>
                     {option.result && (
-                      <div className="text-green-400 pl-2">Correct</div>
+                      <div className="text-green-400 pl-2 flex">
+                        <Check />
+                        Correct
+                      </div>
                     )}
                   </div>
                 </Typography>

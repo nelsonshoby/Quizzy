@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :home, only: :index
     resource :sessions, only: %i[create destroy]
     resources :quizzes, only: [:create, :index, :update, :destroy, :show]
-    resources :questions, only: [:create, :destroy]
+    resources :questions, only: [:create, :destroy, :show, :update]
   end
   root "home#index"
   get "*path", to: "home#index", via: :all
