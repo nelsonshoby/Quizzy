@@ -41,12 +41,17 @@ function QuizShowPage() {
             pathname: `/CreateQuestion/${id}`,
           }}
         >
-          <Button
-            label="Add new quiz"
-            icon={Plus}
-            style="secondary"
-            iconPosition="left"
-          />
+          <div className="flex">
+            <Button
+              label="Add new question"
+              icon={Plus}
+              style="secondary"
+              iconPosition="left"
+            />
+            {questionData.length !== 0 && (
+              <Button label="Publish" className="ml-2" style="secondary" />
+            )}
+          </div>
         </Link>
       </div>
 

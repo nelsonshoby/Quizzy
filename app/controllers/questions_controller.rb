@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
 
   def create
     question = @quiz.questions.new(question_params)
+    puts question_params
     if question.save!
       render status: :ok, json: {
         notice: t("successfully_created", entity: "question")
