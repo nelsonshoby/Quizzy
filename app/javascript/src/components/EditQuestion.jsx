@@ -52,13 +52,13 @@ function EditQuestion() {
     if (arraySize != setSize) {
       toast.error("Options cant be same", TOASTR_OPTIONS);
     } else if (question.length != 0 && answer.length != 0) {
-      const output = optionsObject.map((ele, index) => ({
+      const optionsObjectWithId = optionsObject.map((ele, index) => ({
         id: optionId[index],
         content: ele,
         result: ele === answer.value,
       }));
 
-      const final = output.concat(deletedOptions);
+      const final = optionsObjectWithId.concat(deletedOptions);
 
       try {
         await questionApi.update(

@@ -34,6 +34,7 @@ function Home() {
         )}
         <Button
           label="Add new quiz"
+          className="ml-56"
           onClick={() => (window.location.href = "/quiz/new")}
           icon={Plus}
           style="secondary"

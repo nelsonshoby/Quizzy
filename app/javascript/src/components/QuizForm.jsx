@@ -4,6 +4,7 @@ import { Typography } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Input } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
+import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 
 import quizzesApi from "apis/quizzes";
@@ -13,6 +14,7 @@ import NavBar from "./NavBar";
 import { TOASTR_OPTIONS } from "../constants";
 
 function QuizForm() {
+  let history = useHistory();
   const [name, setName] = useState("");
   const handleSubmit = async event => {
     event.preventDefault();
@@ -20,7 +22,7 @@ function QuizForm() {
     if (name.length !== 0) {
       try {
         await quizzesApi.create({ quiz: { name } });
-        window.location.href = "/";
+        history.push("/");
       } catch (error) {
         Logger.error(error);
       }

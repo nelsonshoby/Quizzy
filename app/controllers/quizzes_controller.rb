@@ -2,7 +2,8 @@
 
 class QuizzesController < ApplicationController
   before_action :authenticate_user_using_x_auth_token
-  before_action :load_quiz, only: [:show]
+  before_action :load_quiz, only: [:show, :set_slug]
+  before_action :role_authentication, only: [:create, :update, :destroy]
 
   def index
     @quiz = policy_scope(Quiz).order("created_at DESC")
@@ -52,16 +53,43 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def set_slug
+    name_slug = @quiz.name.parameterize
+    regex_pattern = "slug #{Constants::DB_REGEX_OPERATOR} ?"
+    latest_task_slug = Quiz.where(
+      regex_pattern,
+      "#{name_slug}$|#{name_slug}-[0-9]+$"
+    ).order(slug: :desc).first&.slug
+    slug_count = 0
+    if latest_task_slug.present?
+      slug_count = latest_task_slug.split("-").last.to_i
+      only_one_slug_exists = slug_count == 0
+      slug_count = 1 if only_one_slug_exists
+    end
+    slug = slug_count.positive? ? "#{name_slug}-#{slug_count + 1}" : name_slug
+    unless @quiz.update(slug: slug)
+      render status: :not_found, json: { error: @quiz.errors.full_messages.to_sentence }
+    end
+  end
+
   private
 
     def load_quiz
       @quiz = Quiz.find_by(id: params[:id])
       unless @quiz
-        render status: :not_found, json: { error: "Quiz not found" }
+        render status: :not_found, json: { error: t("Error while creating slug") }
       end
     end
 
     def quiz_params
       params.require(:quiz).permit(:name)
+    end
+
+    def role_authentication
+      if @current_user.role === "administrator"
+        render status: :ok, json: {
+          error: t("access_denied")
+        }
+      end
     end
 end

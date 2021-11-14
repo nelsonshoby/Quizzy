@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+import { Check } from "@bigbinary/neeto-icons";
 import { Plus } from "@bigbinary/neeto-icons";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
-import Logger from "js-logger";
+import * as R from "ramda";
 import { Link, useParams } from "react-router-dom";
 
 import NavBar from "./NavBar";
@@ -15,15 +16,33 @@ function QuizShowPage() {
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [questionData, setQuestionData] = useState([]);
+  const [slug, setSlug] = useState("");
+  // const [fetchSlug, setFetchSlug] = useState();
+
+  const createSlug = async () => {
+    try {
+      const response = await quizzesApi.setSlug(id);
+      setSlug(response.data.quiz);
+      // fetchQuizDetails();
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   const fetchQuizDetails = async () => {
     try {
       const response = await quizzesApi.show(id);
+      // console.log("fetched slug response ",response.data.quiz.slug)
+
+      setSlug(response.data.quiz.slug);
+      // console.log("fetched slug response 2 ",fetchSlug)
       setQuestionData(response.data.quiz.questions);
       setTitle(response.data.quiz.name);
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
     }
   };
+
   useEffect(() => {
     fetchQuizDetails();
   }, []);
@@ -35,24 +54,44 @@ function QuizShowPage() {
         <Typography style="h2" className="pl-56">
           {title}
         </Typography>
-
-        <Link
-          to={{
-            pathname: `/CreateQuestion/${id}`,
-          }}
-        >
-          <div className="flex">
+        <div className="flex">
+          <Link
+            to={{
+              pathname: `/CreateQuestion/${id}`,
+            }}
+          >
             <Button
               label="Add new question"
               icon={Plus}
               style="secondary"
               iconPosition="left"
             />
-            {questionData.length !== 0 && (
-              <Button label="Publish" className="ml-2" style="secondary" />
-            )}
+          </Link>
+          {questionData.length !== 0 && R.isNil(slug) && (
+            <Button
+              label="Publish"
+              className="ml-2"
+              style="secondary"
+              onClick={createSlug}
+            />
+          )}
+        </div>
+      </div>
+      <div className="pt-10 pr-40 pl-56 flex">
+        {slug && (
+          <div className="flex">
+            <Check className="-mt-1" />
+            <Typography style="h5">
+              Published, your public link is –{" "}
+              <Link
+                to="/"
+                className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+              >
+                {"http://localhost:3000/public/" + slug}
+              </Link>
+            </Typography>
           </div>
-        </Link>
+        )}
       </div>
 
       {questionData.length !== 0 ? (
