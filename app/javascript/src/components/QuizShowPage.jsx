@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { Check } from "@bigbinary/neeto-icons";
-import { Plus } from "@bigbinary/neeto-icons";
-import { Typography } from "@bigbinary/neetoui/v2";
+import { Check, Copy, Plus } from "@bigbinary/neeto-icons";
+import { Tooltip, Typography } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
-import * as R from "ramda";
+import { isNil } from "ramda";
 import { Link, useParams } from "react-router-dom";
 
 import NavBar from "./NavBar";
@@ -17,13 +16,11 @@ function QuizShowPage() {
   const [title, setTitle] = useState("");
   const [questionData, setQuestionData] = useState([]);
   const [slug, setSlug] = useState("");
-  // const [fetchSlug, setFetchSlug] = useState();
 
   const createSlug = async () => {
     try {
       const response = await quizzesApi.setSlug(id);
       setSlug(response.data.quiz);
-      // fetchQuizDetails();
     } catch (error) {
       logger.error(error);
     }
@@ -32,14 +29,20 @@ function QuizShowPage() {
   const fetchQuizDetails = async () => {
     try {
       const response = await quizzesApi.show(id);
-      // console.log("fetched slug response ",response.data.quiz.slug)
-
       setSlug(response.data.quiz.slug);
-      // console.log("fetched slug response 2 ",fetchSlug)
       setQuestionData(response.data.quiz.questions);
       setTitle(response.data.quiz.name);
     } catch (error) {
       logger.error(error);
+    }
+  };
+
+  const copyToClipBoard = async slug => {
+    try {
+      let url = `http://localhost:3000/public/${slug}`;
+      await navigator.clipboard.writeText(url);
+    } catch (err) {
+      alert("Error while copying");
     }
   };
 
@@ -67,7 +70,7 @@ function QuizShowPage() {
               iconPosition="left"
             />
           </Link>
-          {questionData.length !== 0 && R.isNil(slug) && (
+          {questionData.length !== 0 && isNil(slug) && (
             <Button
               label="Publish"
               className="ml-2"
@@ -82,14 +85,21 @@ function QuizShowPage() {
           <div className="flex">
             <Check className="-mt-1" />
             <Typography style="h5">
-              Published, your public link is –{" "}
+              Published, your public link is –
               <Link
-                to="/"
+                to={{
+                  pathname: `/EveLogin/${id}`,
+                }}
                 className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
               >
                 {"http://localhost:3000/public/" + slug}
               </Link>
             </Typography>
+            <Tooltip placement={"bottom"} content={"Copy"}>
+              <div>
+                <Copy onClick={() => copyToClipBoard(slug)} />
+              </div>
+            </Tooltip>
           </div>
         )}
       </div>
