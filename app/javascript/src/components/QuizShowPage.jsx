@@ -88,7 +88,7 @@ function QuizShowPage() {
               Published, your public link is –
               <Link
                 to={{
-                  pathname: `/EveLogin/${id}`,
+                  pathname: `/public/${slug}`,
                 }}
                 className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
               >

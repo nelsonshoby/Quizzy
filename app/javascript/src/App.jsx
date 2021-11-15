@@ -42,7 +42,7 @@ const App = () => {
         <Route exact path="/quizShowpage/:id/show" component={QuizShowPage} />
         <Route exact path="/CreateQuestion/:id" component={CreateQuestion} />
         <Route exact path="/EditQuestion/:id" component={EditQuestion} />
-        <Route exact path="/EveLogin/:id" component={EveLogin} />
+        <Route exact path="/public/:slug" component={EveLogin} />
         <Route exact path="/quiz/new" component={QuizForm} />
         <PrivateRoute
           path="/"
