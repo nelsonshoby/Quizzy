@@ -3,7 +3,6 @@
 class QuizzesController < ApplicationController
   before_action :authenticate_user_using_x_auth_token
   before_action :load_quiz, only: [:show, :set_slug]
-  before_action :role_authentication, only: [:create, :update, :destroy]
 
   def index
     @quiz = policy_scope(Quiz).order("created_at DESC")
@@ -72,6 +71,13 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def show_slug
+    @quiz = Quiz.find_by(slug: params[:slug])
+    unless @quiz
+      render status: :not_found, json: { error: t("slug_does_not_exist") }
+    end
+  end
+
   private
 
     def load_quiz
@@ -83,13 +89,5 @@ class QuizzesController < ApplicationController
 
     def quiz_params
       params.require(:quiz).permit(:name)
-    end
-
-    def role_authentication
-      if @current_user.role === "administrator"
-        render status: :ok, json: {
-          error: t("access_denied")
-        }
-      end
     end
 end

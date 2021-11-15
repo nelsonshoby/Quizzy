@@ -11,6 +11,8 @@ const show = id => axios.get(`/quizzes/${id}`);
 const destroy = id => axios.delete(`/quizzes/${id}`);
 
 const setSlug = id => axios.get(`/quizzes/setSlug/${id}`);
+
+const showSlug = slug => axios.get(`/quizzes/showSlug/${slug}`);
 const quizzesApi = {
   create,
   index,
@@ -18,5 +20,6 @@ const quizzesApi = {
   destroy,
   show,
   setSlug,
+  showSlug,
 };
 export default quizzesApi;
