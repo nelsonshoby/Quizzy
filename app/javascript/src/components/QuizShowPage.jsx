@@ -83,7 +83,7 @@ function QuizShowPage() {
       <div className="pt-10 pr-40 pl-56 flex">
         {slug && (
           <div className="flex">
-            <Check className="-mt-1" />
+            <Check size={18} />
             <Typography style="h5">
               Published, your public link is –
               <Link
@@ -97,7 +97,11 @@ function QuizShowPage() {
             </Typography>
             <Tooltip placement={"bottom"} content={"Copy"}>
               <div>
-                <Copy onClick={() => copyToClipBoard(slug)} />
+                <Copy
+                  size={15}
+                  className="mt-1"
+                  onClick={() => copyToClipBoard(slug)}
+                />
               </div>
             </Tooltip>
           </div>

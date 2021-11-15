@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Input } from "@bigbinary/neetoui/v2";
-import Logger from "js-logger";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 
@@ -24,7 +23,7 @@ function QuizForm() {
         await quizzesApi.create({ quiz: { name } });
         history.push("/");
       } catch (error) {
-        Logger.error(error);
+        logger.error(error);
       }
     } else {
       toast.error("Quiz name can't be empty", TOASTR_OPTIONS);

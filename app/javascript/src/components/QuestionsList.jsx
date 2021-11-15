@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Check } from "@bigbinary/neeto-icons";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
-import Logger from "js-logger";
 
 import ModalComponent from "./ModalComponent";
 
@@ -16,7 +15,7 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
       await questionApi.destroy(id);
       fetchQuizDetails();
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
     }
   };
 
@@ -68,7 +67,7 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
                     <div>{option.content}</div>
                     {option.result && (
                       <div className="text-green-400 pl-2 flex">
-                        <Check />
+                        <Check size={20} />
                         Correct
                       </div>
                     )}
