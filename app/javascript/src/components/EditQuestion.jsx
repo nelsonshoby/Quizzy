@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Logger from "js-logger";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -39,7 +38,7 @@ function EditQuestion() {
 
       setAnswer({ label: `option ${optionObj.indexOf(ans)}`, value: ans });
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
     }
   };
 
@@ -52,13 +51,13 @@ function EditQuestion() {
     if (arraySize != setSize) {
       toast.error("Options cant be same", TOASTR_OPTIONS);
     } else if (question.length != 0 && answer.length != 0) {
-      const output = optionsObject.map((ele, index) => ({
+      const optionsObjectWithId = optionsObject.map((ele, index) => ({
         id: optionId[index],
         content: ele,
         result: ele === answer.value,
       }));
 
-      const final = output.concat(deletedOptions);
+      const final = optionsObjectWithId.concat(deletedOptions);
 
       try {
         await questionApi.update(
@@ -73,7 +72,7 @@ function EditQuestion() {
 
         window.location.href = `/quizShowpage/${quizId}/show`;
       } catch (error) {
-        Logger.error(error);
+        logger.error(error);
       }
     } else {
       toast.error("Question name can't be empty", TOASTR_OPTIONS);

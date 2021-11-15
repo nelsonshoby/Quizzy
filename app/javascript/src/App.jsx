@@ -12,6 +12,7 @@ import Login from "components/Login";
 
 import CreateQuestion from "./components/CreateQuestion";
 import EditQuestion from "./components/EditQuestion";
+import EveLogin from "./components/EveLogin";
 import Home from "./components/Home";
 import QuizForm from "./components/QuizForm";
 import QuizShowPage from "./components/QuizShowPage";
@@ -41,6 +42,7 @@ const App = () => {
         <Route exact path="/quizShowpage/:id/show" component={QuizShowPage} />
         <Route exact path="/CreateQuestion/:id" component={CreateQuestion} />
         <Route exact path="/EditQuestion/:id" component={EditQuestion} />
+        <Route exact path="/public/:slug" component={EveLogin} />
         <Route exact path="/quiz/new" component={QuizForm} />
         <PrivateRoute
           path="/"

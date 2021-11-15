@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Logger from "js-logger";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -23,7 +22,7 @@ function CreateQuestion() {
       const response = await quizzesApi.show(id);
       setTitle(response.data.quiz.name);
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
     }
   };
   useEffect(() => {
@@ -74,7 +73,7 @@ function CreateQuestion() {
 
         window.location.href = `/quizShowpage/${id}/show`;
       } catch (error) {
-        Logger.error(error);
+        logger.error(error);
       }
     } else {
       toast.error("Question name can't be empty", TOASTR_OPTIONS);
