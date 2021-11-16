@@ -92,7 +92,7 @@ function QuizShowPage() {
                 }}
                 className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
               >
-                {"http://localhost:3000/public/" + slug}
+                {window.location.origin + "/public/" + slug}
               </Link>
             </Typography>
             <Tooltip placement={"bottom"} content={"Copy"}>

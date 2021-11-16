@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
-  before_action :authenticate_user_using_x_auth_token
+  before_action :authenticate_user_using_x_auth_token, except: [:show_slug]
   before_action :load_quiz, only: [:show, :set_slug]
 
   def index
