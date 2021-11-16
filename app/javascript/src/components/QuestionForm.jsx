@@ -78,8 +78,8 @@ function QuestionForm({
               onChange={e => {
                 setAnswer(e);
               }}
-              options={optionsObject.map((ans, index) => ({
-                label: `option ${index + 1}`,
+              options={optionsObject.map(ans => ({
+                label: ans,
                 value: ans,
               }))}
               placeholder="Select an Answer"

@@ -20,11 +20,11 @@ function EveRegistration() {
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [id, setId] = useState();
-  const [questionData, setQuestionData] = useState();
+  const [quizData, setQuizData] = useState();
 
   const fetchData = async () => {
     const response = await quizzesApi.showSlug(slug);
-    setQuestionData(response.data);
+    setQuizData(response.data);
     setTitle(response.data.quiz.name);
   };
   useEffect(() => {
@@ -66,6 +66,7 @@ function EveRegistration() {
                 <Input
                   label="First Name"
                   value={firstName}
+                  required="required"
                   onChange={e => setFirstName(e.target.value)}
                   placeholder="Enter First Name"
                   className="mt-4"
@@ -73,6 +74,7 @@ function EveRegistration() {
                 <Input
                   label="Last Name"
                   value={lastName}
+                  required="required"
                   onChange={e => setLastName(e.target.value)}
                   placeholder="Enter Last Name"
                   className="mt-4"
@@ -80,6 +82,7 @@ function EveRegistration() {
                 <Input
                   label="Email"
                   value={email}
+                  required="required"
                   onChange={e => setEmail(e.target.value)}
                   placeholder="Enter Email"
                   className="mt-4"
@@ -95,7 +98,7 @@ function EveRegistration() {
           </div>
         </div>
       ) : (
-        <TakeQuiz questionData={questionData} />
+        <TakeQuiz quizData={quizData} />
       )}
     </div>
   );
