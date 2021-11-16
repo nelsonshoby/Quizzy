@@ -39,7 +39,7 @@ function QuizShowPage() {
 
   const copyToClipBoard = async slug => {
     try {
-      let url = `http://localhost:3000/public/${slug}`;
+      let url = `${window.location.origin}/public/${slug}`;
       await navigator.clipboard.writeText(url);
     } catch (err) {
       alert("Error while copying");
