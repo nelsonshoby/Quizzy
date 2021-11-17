@@ -4,12 +4,15 @@ import { Button } from "@bigbinary/neetoui/v2";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Radio } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
+import { useParams } from "react-router";
 
 import attemptApi from "../apis/attempt";
 
 function TakeQuiz({ quizData, userId, id }) {
   const [selectedAnswer, setSelectedAnswer] = useState([]);
-  const [updatedAttemptData, setAttemptedData] = useState();
+
+  const { slug } = useParams();
+  Logger.warn("slug", slug);
   const handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
@@ -21,8 +24,7 @@ function TakeQuiz({ quizData, userId, id }) {
 
   const handleSubmit = async () => {
     Logger.warn("selectedAnswer", selectedAnswer);
-
-    const attemptData = await attemptApi.update(
+    const response = await attemptApi.update(
       {
         attempt: {
           quiz_id: quizData.user,
@@ -33,8 +35,8 @@ function TakeQuiz({ quizData, userId, id }) {
       },
       id
     );
-    setAttemptedData(attemptData.data.attempt);
-    Logger.warn("updatedAttemptData", updatedAttemptData);
+    const attemptId = response.data.attempt;
+    window.location.href = `/public/${slug}/${attemptId}/report`;
   };
 
   return (

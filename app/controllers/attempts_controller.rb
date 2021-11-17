@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AttemptsController < ApplicationController
-  before_action :load_attempt, only: [:update]
+  before_action :load_attempt, only: [:update, :show]
 
   def create
     @attempt = Attempt.find_by(user_id: attempt_params[:user_id])
@@ -28,6 +28,13 @@ class AttemptsController < ApplicationController
     unless @attempt.update(attempt_params)
       render status: :unprocessable_entity, json: { error: @attempt.errors.full_messages }
     end
+  end
+
+  def show
+    load_attempt
+    @quiz = Quiz.find_by(id: @attempt.quiz_id)
+    p "quiz is asdfghjkl", @quiz
+    render
   end
 
   private

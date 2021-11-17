@@ -17,6 +17,7 @@ import EveRegistration from "./components/EveRegistration";
 import Home from "./components/Home";
 import QuizForm from "./components/QuizForm";
 import QuizShowPage from "./components/QuizShowPage";
+import Result from "./components/Result";
 import { getFromLocalStorage } from "./helpers/storage";
 
 const App = () => {
@@ -45,6 +46,11 @@ const App = () => {
         <Route exact path="/EditQuestion/:id" component={EditQuestion} />
         <Route exact path="/public/:slug" component={EveHome} />
         <Route exact path="/quiz/new" component={QuizForm} />
+        <Route
+          exact
+          path="/public/:slug/:attemptId/report"
+          component={Result}
+        />
         <Route
           exact
           path="/public/:slug/attempts/new"

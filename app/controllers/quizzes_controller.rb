@@ -72,6 +72,7 @@ class QuizzesController < ApplicationController
   end
 
   def show_slug
+    p "QWERTYUIOP!!!!!"
     @quiz = Quiz.find_by(slug: params[:slug])
     unless @quiz
       render status: :not_found, json: { error: t("slug_does_not_exist") }
