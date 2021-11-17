@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 
 import TakeQuiz from "./TakeQuiz";
 
+import attemptApi from "../apis/attempt";
 import quizzesApi from "../apis/quizzes";
 import usersApi from "../apis/user";
 
@@ -20,11 +21,15 @@ function EveRegistration() {
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [id, setId] = useState();
-  const [quizData, setQuizData] = useState();
+  const [quizData, setQuizData] = useState("");
+  const [quizId, setQuizId] = useState();
+  const [attempt, setAttempt] = useState();
 
   const fetchData = async () => {
     const response = await quizzesApi.showSlug(slug);
+
     setQuizData(response.data);
+    setQuizId(response.data.quiz.id);
     setTitle(response.data.quiz.name);
   };
   useEffect(() => {
@@ -44,6 +49,15 @@ function EveRegistration() {
         },
       });
       setId(response.data.user);
+
+      const attemptData = await attemptApi.create({
+        attempt: {
+          quiz_id: quizId,
+          user_id: response.data.user,
+        },
+      });
+
+      setAttempt(attemptData.data.attempt_id);
     } catch (error) {
       Logger.error(error);
     }
@@ -54,8 +68,8 @@ function EveRegistration() {
       <div className="border-b-2">
         <Header title="Quizzy" className="ml-10" />
       </div>
-      {isNil(id) ? (
-        <div className="flex items-center justify-center mt-20">
+      {isNil(id) || isNil(attempt) ? (
+        <div className="flex items-center justify-center mt-20 border-gray-100 border-8">
           <div className="w-full max-w-md m-8">
             <Typography style="h1" className="mb-8">
               Welcome to {title}
@@ -98,7 +112,7 @@ function EveRegistration() {
           </div>
         </div>
       ) : (
-        <TakeQuiz quizData={quizData} />
+        <TakeQuiz quizData={quizData} userId={id} id={attempt} />
       )}
     </div>
   );

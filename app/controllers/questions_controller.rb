@@ -36,7 +36,7 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       render status: :ok, json: { notice: "successfully_updated", entity: "question" }
     else
-      render status :unprocessable_entity, json: { error: @question.errors.full_messages }
+      render status: :unprocessable_entity, json: { error: @question.errors.full_messages }
     end
   end
 

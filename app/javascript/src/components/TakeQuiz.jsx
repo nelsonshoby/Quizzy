@@ -5,29 +5,51 @@ import { Typography } from "@bigbinary/neetoui/v2";
 import { Radio } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
-function TakeQuiz({ quizData }) {
+import attemptApi from "../apis/attempt";
+
+function TakeQuiz({ quizData, userId, id }) {
   const [selectedAnswer, setSelectedAnswer] = useState([]);
+  const [updatedAttemptData, setAttemptedData] = useState();
   const handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
-    setSelectedAnswer({ ...selectedAnswer, [name]: value });
+    setSelectedAnswer(prev => [
+      ...prev,
+      { question_id: Number(name), option_id: Number(value) },
+    ]);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     Logger.warn("selectedAnswer", selectedAnswer);
+
+    const attemptData = await attemptApi.update(
+      {
+        attempt: {
+          quiz_id: quizData.user,
+          user_id: userId,
+          submitted: true,
+          attempt_answers_attributes: selectedAnswer,
+        },
+      },
+      id
+    );
+    setAttemptedData(attemptData.data.attempt);
+    Logger.warn("updatedAttemptData", updatedAttemptData);
   };
 
   return (
     <div>
-      <div className="m-16">
-        <Typography style="h1" className="mb-8">
+      <div className="m-16  border-gray-100 border-8 shadow-sm">
+        <Typography style="h1" className="mb-8 ml-2">
           {quizData.quiz.name}
         </Typography>
 
         {quizData.quiz.questions.map((question, index) => (
           <>
-            <div key={index} className="flex mt-8">
-              <Typography style="h3">Question {index}</Typography>
+            <div key={index} className="flex mt-8 bg-gray-100">
+              <Typography style="h3" className="ml-2">
+                Question {index}
+              </Typography>
               <Typography style="h4" className="ml-48">
                 {question.description}
               </Typography>
@@ -40,7 +62,7 @@ function TakeQuiz({ quizData }) {
                       className="mt-6"
                       label={option.content}
                       name={question.id}
-                      value={option.content}
+                      value={option.id}
                       onChange={handleChange}
                     />
                   </div>
@@ -50,11 +72,11 @@ function TakeQuiz({ quizData }) {
           </>
         ))}
 
-        <div>
+        <div className="flex w-full items-center justify-center mb-2">
           <Button
-            className="mt-6"
+            className=""
             type="submit"
-            label="Button"
+            label="Submit"
             onClick={handleSubmit}
             style="secondary"
           />
