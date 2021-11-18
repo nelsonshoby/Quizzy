@@ -17,7 +17,7 @@ class AttemptsController < ApplicationController
       end
     end
     if @attempt.submitted
-      render status: :unprocessable_entity, json: { error: "Access denied" }
+      render status: :unprocessable_entity, json: { error: "You have already submitted this quiz" }
     else
       render status: :ok, json: { attempt_id: @attempt.id }
     end

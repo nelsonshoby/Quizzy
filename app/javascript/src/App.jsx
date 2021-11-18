@@ -48,7 +48,7 @@ const App = () => {
         <Route exact path="/quiz/new" component={QuizForm} />
         <Route
           exact
-          path="/public/:slug/:attemptId/report"
+          path="/public/:slug/:attemptId/result"
           component={Result}
         />
         <Route

@@ -9,21 +9,25 @@ import { useParams } from "react-router";
 import attemptApi from "../apis/attempt";
 
 function TakeQuiz({ quizData, userId, id }) {
-  const [selectedAnswer, setSelectedAnswer] = useState([]);
-
+  const [answer, setAnswer] = useState({});
   const { slug } = useParams();
   Logger.warn("slug", slug);
   const handleChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setSelectedAnswer(prev => [
-      ...prev,
-      { question_id: Number(name), option_id: Number(value) },
-    ]);
+    const result = {
+      ...answer,
+      [e.target.name]: e.target.value,
+    };
+    setAnswer(result);
   };
 
   const handleSubmit = async () => {
     Logger.warn("selectedAnswer", selectedAnswer);
+
+    const selectedAnswer = Object.keys(answer).map(key => ({
+      question_id: key,
+      option_id: answer[key],
+    }));
+
     const response = await attemptApi.update(
       {
         attempt: {
@@ -36,7 +40,7 @@ function TakeQuiz({ quizData, userId, id }) {
       id
     );
     const attemptId = response.data.attempt;
-    window.location.href = `/public/${slug}/${attemptId}/report`;
+    window.location.href = `/public/${slug}/${attemptId}/result`;
   };
 
   return (
