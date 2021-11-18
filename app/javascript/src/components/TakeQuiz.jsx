@@ -31,7 +31,7 @@ function TakeQuiz({ quizData, userId, id }) {
     const response = await attemptApi.update(
       {
         attempt: {
-          quiz_id: quizData.user,
+          quiz_id: quizData.quiz.id,
           user_id: userId,
           submitted: true,
           attempt_answers_attributes: selectedAnswer,
