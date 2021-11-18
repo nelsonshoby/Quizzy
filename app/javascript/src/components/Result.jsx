@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Radio } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 import { Header } from "@bigbinary/neetoui/v2/layouts";
 import { mergeAll } from "ramda";
 import { useParams } from "react-router";
@@ -45,7 +46,11 @@ function Result() {
   }, []);
 
   if (!quizData) {
-    return <div>loading</div>;
+    return (
+      <div className="py-10 mt-64 ml-64">
+        <PageLoader />
+      </div>
+    );
   }
 
   return (
@@ -54,11 +59,11 @@ function Result() {
         <Header title="Quizzy" className="ml-10" />
       </div>
 
-      <div className="m-16  border-gray-100 border-8 shadow-sm pb-4">
+      <div className="m-16  border-gray-100 border-8  pb-4 shadow-lg p-2 rounded-md">
         <Typography style="h1" className="mb-8 ml-2">
           {quizData.quiz.name}
         </Typography>
-        <Typography style="body1" className="mt-2 ml-2">
+        <Typography style="h4" className="mt-2 ml-2">
           Thank you for taking the quiz, here are your results. You have
           submitted {numberOfCorrectAnswer} correct and{" "}
           {numberOfAttemptedQuestions - numberOfCorrectAnswer} incorrect
@@ -67,7 +72,7 @@ function Result() {
 
         {quizData.quiz.questions.map((question, index) => (
           <>
-            <div key={index} className="flex mt-8 bg-gray-100 p-2">
+            <div key={index} className="flex mt-8 bg-gray-100 p-2 rounded-md">
               <Typography style="h3" className="ml-2">
                 Question {index}
               </Typography>

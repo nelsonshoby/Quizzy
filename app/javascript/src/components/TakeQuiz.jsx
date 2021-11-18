@@ -45,14 +45,14 @@ function TakeQuiz({ quizData, userId, id }) {
 
   return (
     <div>
-      <div className="m-16  border-gray-100 border-8 shadow-sm">
+      <div className="m-16  border-gray-100 border-8 shadow-lg p-2 rounded-md">
         <Typography style="h1" className="mb-8 ml-2">
           {quizData.quiz.name}
         </Typography>
 
         {quizData.quiz.questions.map((question, index) => (
           <>
-            <div key={index} className="flex mt-8 bg-gray-100">
+            <div key={index} className="flex mt-8 bg-gray-100 rounded-md p-2">
               <Typography style="h3" className="ml-2">
                 Question {index}
               </Typography>

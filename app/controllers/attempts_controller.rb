@@ -24,7 +24,6 @@ class AttemptsController < ApplicationController
   end
 
   def update
-    p "a attempt_params", attempt_params
     unless @attempt.update(attempt_params)
       render status: :unprocessable_entity, json: { error: @attempt.errors.full_messages }
     end
@@ -33,7 +32,6 @@ class AttemptsController < ApplicationController
   def show
     load_attempt
     @quiz = Quiz.find_by(id: @attempt.quiz_id)
-    p "quiz is asdfghjkl", @quiz
     render
   end
 
@@ -41,7 +39,6 @@ class AttemptsController < ApplicationController
 
     def load_attempt
       @attempt = Attempt.find_by(id: params[:id])
-      p "load attempt", @attempt
       unless @attempt
         render status: :not_found, json: { error: t("not_found", entity: "Attempt") }
       end

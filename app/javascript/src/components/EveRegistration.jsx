@@ -69,45 +69,47 @@ function EveRegistration() {
         <Header title="Quizzy" className="ml-10" />
       </div>
       {isNil(id) || isNil(attempt) ? (
-        <div className="flex items-center justify-center mt-20 border-gray-100 border-8">
-          <div className="w-full max-w-md m-8">
-            <Typography style="h1" className="mb-8">
-              Welcome to {title}
-            </Typography>
+        <div className="mx-64">
+          <div className="flex items-center justify-center mt-20 border-gray-100 border-8 mx-64 shadow-xl">
+            <div className="w-full max-w-md m-8">
+              <Typography style="h1" className="mb-8">
+                Welcome to {title}
+              </Typography>
 
-            <div className=" text-center">
-              <form onSubmit={handleSubmit}>
-                <Input
-                  label="First Name"
-                  value={firstName}
-                  required="required"
-                  onChange={e => setFirstName(e.target.value)}
-                  placeholder="Enter First Name"
-                  className="mt-4"
-                />
-                <Input
-                  label="Last Name"
-                  value={lastName}
-                  required="required"
-                  onChange={e => setLastName(e.target.value)}
-                  placeholder="Enter Last Name"
-                  className="mt-4"
-                />
-                <Input
-                  label="Email"
-                  value={email}
-                  required="required"
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="Enter Email"
-                  className="mt-4"
-                />
-                <Button
-                  label="Next"
-                  type="submit"
-                  style="secondary"
-                  className="mt-4"
-                />
-              </form>
+              <div className=" text-center">
+                <form onSubmit={handleSubmit}>
+                  <Input
+                    label="First Name"
+                    value={firstName}
+                    required="required"
+                    onChange={e => setFirstName(e.target.value)}
+                    placeholder="Enter First Name"
+                    className="mt-4"
+                  />
+                  <Input
+                    label="Last Name"
+                    value={lastName}
+                    required="required"
+                    onChange={e => setLastName(e.target.value)}
+                    placeholder="Enter Last Name"
+                    className="mt-4"
+                  />
+                  <Input
+                    label="Email"
+                    value={email}
+                    required="required"
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="Enter Email"
+                    className="mt-4"
+                  />
+                  <Button
+                    label="Next"
+                    type="submit"
+                    style="secondary"
+                    className="mt-4"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         </div>
