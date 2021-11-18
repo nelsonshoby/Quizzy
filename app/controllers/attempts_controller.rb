@@ -4,7 +4,7 @@ class AttemptsController < ApplicationController
   before_action :load_attempt, only: [:update, :show]
 
   def create
-    @attempt = Attempt.find_by(user_id: attempt_params[:user_id])
+    @attempt = Attempt.find_by(quiz_id: attempt_params[:quiz_id], user_id: attempt_params[:user_id])
 
     unless @attempt
 
