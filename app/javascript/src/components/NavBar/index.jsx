@@ -31,7 +31,12 @@ const NavBar = () => {
         className=" border-b-2"
         actionBlock={
           <div className="flex">
-            <Button className="ml-4" label="Report" style="text" />
+            <Button
+              className="ml-4"
+              label="Report"
+              style="text"
+              onClick={() => (window.location.href = "/quiz/report")}
+            />
             <Button className="ml-4" label={userName} style="text" />
             <Button
               className="ml-4 mr-8"
