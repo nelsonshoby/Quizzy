@@ -5,3 +5,5 @@ en:
   successfully_destroyed: "%{entity} was successfully deleted!"
   successfully_created: "%{entity} was successfully created!"
   access_denied: "Access denied. You are not authorized to perform this action."
+  slug_does_not_exist: "Slug does not exist"
+  successfully_submitted: "%{entity} successfully submitted!"

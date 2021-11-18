@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
-  before_action :authenticate_user_using_x_auth_token
+  before_action :authenticate_user_using_x_auth_token, except: [:show_slug]
   before_action :load_quiz, only: [:show, :set_slug]
 
   def index
@@ -58,7 +58,7 @@ class QuizzesController < ApplicationController
     latest_task_slug = Quiz.where(
       regex_pattern,
       "#{name_slug}$|#{name_slug}-[0-9]+$"
-    ).order(slug: :desc).first&.slug
+    ).order("LENGTH(slug) DESC", slug: :desc).first&.slug
     slug_count = 0
     if latest_task_slug.present?
       slug_count = latest_task_slug.split("-").last.to_i
@@ -68,6 +68,13 @@ class QuizzesController < ApplicationController
     slug = slug_count.positive? ? "#{name_slug}-#{slug_count + 1}" : name_slug
     unless @quiz.update(slug: slug)
       render status: :not_found, json: { error: @quiz.errors.full_messages.to_sentence }
+    end
+  end
+
+  def show_slug
+    @quiz = Quiz.find_by(slug: params[:slug])
+    unless @quiz
+      render status: :not_found, json: { error: t("slug_does_not_exist") }
     end
   end
 

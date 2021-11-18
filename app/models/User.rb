@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_secure_password
   has_secure_token :authentication_token
   has_many :quizzes
+  has_many :attempts
 
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :first_name, :last_name, presence: true, length: { maximum: Constants::MAX_USERNAME_LENGTH }

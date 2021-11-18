@@ -39,7 +39,7 @@ function QuizShowPage() {
 
   const copyToClipBoard = async slug => {
     try {
-      let url = `http://localhost:3000/public/${slug}`;
+      let url = `${window.location.origin}/public/${slug}`;
       await navigator.clipboard.writeText(url);
     } catch (err) {
       alert("Error while copying");
@@ -92,7 +92,7 @@ function QuizShowPage() {
                 }}
                 className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
               >
-                {"http://localhost:3000/public/" + slug}
+                {window.location.origin + "/public/" + slug}
               </Link>
             </Typography>
             <Tooltip placement={"bottom"} content={"Copy"}>

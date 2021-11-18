@@ -7,7 +7,6 @@ class QuestionsController < ApplicationController
 
   def create
     question = @quiz.questions.new(question_params)
-    puts question_params
     if question.save!
       render status: :ok, json: {
         notice: t("successfully_created", entity: "question")
@@ -37,7 +36,7 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       render status: :ok, json: { notice: "successfully_updated", entity: "question" }
     else
-      render status :unprocessable_entity, json: { error: @question.errors.full_messages }
+      render status: :unprocessable_entity, json: { error: @question.errors.full_messages }
     end
   end
 
