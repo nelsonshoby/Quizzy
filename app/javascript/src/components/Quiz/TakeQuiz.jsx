@@ -6,7 +6,7 @@ import { Radio } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { useParams } from "react-router";
 
-import attemptApi from "../apis/attempt";
+import attemptApi from "../../apis/attempt";
 
 function TakeQuiz({ quizData, userId, id }) {
   const [answer, setAnswer] = useState({});

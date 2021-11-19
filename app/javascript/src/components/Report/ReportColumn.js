@@ -13,10 +13,10 @@ export const REPORTCOLUMNS = [
   },
   {
     Headers: "Correct Answer",
-    accessor: "incorrect",
+    accessor: "correct",
   },
   {
     Headers: "Incorrect Answer",
-    accessor: "correct",
+    accessor: "incorrect",
   },
 ];
