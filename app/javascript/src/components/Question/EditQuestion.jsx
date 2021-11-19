@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import QuestionForm from "./QuestionForm";
-
-import questionApi from "../apis/question";
-import { TOASTR_OPTIONS } from "../constants";
+import questionApi from "../../apis/question";
+import { TOASTR_OPTIONS } from "../../constants";
+import QuestionForm from "../QuestionForm";
 
 function EditQuestion() {
   const [optionId, setOptionId] = useState([]);
@@ -36,7 +35,7 @@ function EditQuestion() {
 
       setOptionId(optionid);
 
-      setAnswer({ label: `option ${optionObj.indexOf(ans)}`, value: ans });
+      setAnswer({ label: ans, value: ans });
     } catch (error) {
       logger.error(error);
     }

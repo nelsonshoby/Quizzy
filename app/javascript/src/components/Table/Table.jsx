@@ -20,10 +20,10 @@ function Table({ data, fetchQuiz }) {
   const [editableId, setEditableId] = useState("");
   const [title, setTitle] = useState("");
   const columns = useMemo(() => COLUMNS, []);
-  const data2 = useMemo(() => data, [data]);
+  const tabledata = useMemo(() => data, [data]);
   const tableInstance = useTable({
     columns: columns,
-    data: data2,
+    data: tabledata,
   });
   const handleUpdate = async id => {
     if (title) {
@@ -73,7 +73,11 @@ function Table({ data, fetchQuiz }) {
             <tr key={index} {...row.getRowProps()}>
               {row.cells.map((cell, index) => {
                 return (
-                  <td key={index} {...cell.getCellProps()}>
+                  <td
+                    key={index}
+                    {...cell.getCellProps()}
+                    className="text-base"
+                  >
                     {editableId === row.id ? (
                       <>
                         <div className="grid grid-cols-2">
@@ -83,7 +87,7 @@ function Table({ data, fetchQuiz }) {
                             className="outline-none"
                             autoFocus="on"
                             onChange={e => {
-                              setTitle(e.target.value.trim());
+                              setTitle(e.target.value);
                             }}
                           />
 

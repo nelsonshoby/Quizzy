@@ -6,7 +6,7 @@ import { Radio } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { useParams } from "react-router";
 
-import attemptApi from "../apis/attempt";
+import attemptApi from "../../apis/attempt";
 
 function TakeQuiz({ quizData, userId, id }) {
   const [answer, setAnswer] = useState({});
@@ -31,7 +31,7 @@ function TakeQuiz({ quizData, userId, id }) {
     const response = await attemptApi.update(
       {
         attempt: {
-          quiz_id: quizData.user,
+          quiz_id: quizData.quiz.id,
           user_id: userId,
           submitted: true,
           attempt_answers_attributes: selectedAnswer,

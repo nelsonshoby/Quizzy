@@ -3,11 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import QuestionForm from "./QuestionForm";
-
-import questionApi from "../apis/question";
-import quizzesApi from "../apis/quizzes";
-import { TOASTR_OPTIONS } from "../constants";
+import questionApi from "../../apis/question";
+import quizzesApi from "../../apis/quizzes";
+import { TOASTR_OPTIONS } from "../../constants";
+import QuestionForm from "../QuestionForm";
 
 function CreateQuestion() {
   const [options, setOption] = useState(2);

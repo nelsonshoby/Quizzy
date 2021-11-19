@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_123932) do
+ActiveRecord::Schema.define(version: 2021_11_18_181524) do
 
   create_table "attempt_answers", force: :cascade do |t|
     t.integer "question_id", null: false
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2021_11_17_123932) do
     t.integer "quiz_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "correct_answers_count"
+    t.integer "incorrect_answers_count"
     t.index ["quiz_id"], name: "index_attempts_on_quiz_id"
     t.index ["user_id"], name: "index_attempts_on_user_id"
   end

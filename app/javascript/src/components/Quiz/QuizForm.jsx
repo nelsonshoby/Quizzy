@@ -8,9 +8,8 @@ import { toast } from "react-toastify";
 
 import quizzesApi from "apis/quizzes";
 
-import NavBar from "./NavBar";
-
-import { TOASTR_OPTIONS } from "../constants";
+import { TOASTR_OPTIONS } from "../../constants";
+import NavBar from "../NavBar";
 
 function QuizForm() {
   let history = useHistory();

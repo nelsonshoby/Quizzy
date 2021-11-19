@@ -26,7 +26,7 @@ function QuestionForm({
       <NavBar />
       <div className=" ml-24 ">
         <form onSubmit={handleSubmit}>
-          <div className="flex-col items-center justify-center mt-20 w-full max-w-md m-8 ml-24 ">
+          <div className="flex-col items-center justify-center mt-10 w-full max-w-xl m-8 ml-24 ">
             <Typography style="h2" className="pt-8">
               {title}
             </Typography>
@@ -34,14 +34,14 @@ function QuestionForm({
               label="Question"
               value={question}
               required="required"
-              className="mt-2"
+              className="mt-4 "
               placeholder="Enter question"
               onChange={e => setQuestion(e.target.value)}
             />
             {[...Array(options)].map((ele, index) => (
               <div key={index} className="flex justify-between">
                 <Input
-                  className="mt-2"
+                  className="mt-4 mb-4"
                   required="required"
                   label={`option ${index + 1}`}
                   placeholder={`option ${index + 1}`}
@@ -50,7 +50,7 @@ function QuestionForm({
                 />
                 {index > 1 && (
                   <Button
-                    className="mt-6 ml-1 "
+                    className="mt-8 ml-1 mb-4"
                     icon={Delete}
                     onClick={e => handleDelete(e, index)}
                     style="secondary"
@@ -84,12 +84,14 @@ function QuestionForm({
               }))}
               placeholder="Select an Answer"
             />
-            <Button
-              label="Submit"
-              type="submit"
-              style="secondary"
-              className="mt-2"
-            />
+            <div className="flex w-full items-center justify-center mb-2">
+              <Button
+                label="Submit"
+                type="submit"
+                style="secondary"
+                className="mt-4"
+              />
+            </div>
           </div>
         </form>
       </div>

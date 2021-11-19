@@ -8,7 +8,7 @@ import Logger from "js-logger";
 import { isNil } from "ramda";
 import { useParams } from "react-router";
 
-import TakeQuiz from "./TakeQuiz";
+import TakeQuiz from "./Quiz/TakeQuiz";
 
 import attemptApi from "../apis/attempt";
 import quizzesApi from "../apis/quizzes";

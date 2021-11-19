@@ -6,8 +6,8 @@ import { Header } from "@bigbinary/neetoui/v2/layouts";
 
 import authApi from "apis/auth";
 
-import { setAuthHeaders } from "../apis/axios";
-import { setToLocalStorage } from "../helpers/storage";
+import { setAuthHeaders } from "../../apis/axios";
+import { setToLocalStorage } from "../../helpers/storage";
 
 const Login = () => {
   const [email, setEmail] = useState("");
