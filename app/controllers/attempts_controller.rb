@@ -5,7 +5,7 @@ class AttemptsController < ApplicationController
   before_action :load_attempt, only: [:update, :show]
 
   def index
-    @quiz = @current_user.quizzes
+    @quizzes = @current_user.quizzes
   end
 
   def create

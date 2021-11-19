@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.attempt do
-  json.quiz @quiz do |quiz|
+  json.quiz @quizzes do |quiz|
     json.report quiz.attempts do |attempt|
       json.correct attempt.correct_answers_count
       json.incorrect attempt.incorrect_answers_count

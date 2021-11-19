@@ -26,7 +26,7 @@ function Report() {
   return (
     <div>
       <NavBar />
-      <div className="m-10">
+      <div className="m-16">
         <Header actionBlock={<Button label="Download" />} title="Reports" />
 
         <ReportTable data={reportData} />
