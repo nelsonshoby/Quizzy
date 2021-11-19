@@ -36,7 +36,7 @@ function EditQuestion() {
 
       setOptionId(optionid);
 
-      setAnswer({ label: `option ${optionObj.indexOf(ans)}`, value: ans });
+      setAnswer({ label: ans, value: ans });
     } catch (error) {
       logger.error(error);
     }

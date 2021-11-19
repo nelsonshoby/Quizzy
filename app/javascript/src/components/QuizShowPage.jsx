@@ -16,6 +16,7 @@ function QuizShowPage() {
   const [title, setTitle] = useState("");
   const [questionData, setQuestionData] = useState([]);
   const [slug, setSlug] = useState("");
+  const [switchIcon, setSwitchIcon] = useState(true);
 
   const createSlug = async () => {
     try {
@@ -83,7 +84,6 @@ function QuizShowPage() {
       <div className="pt-10 pr-40 pl-56 flex">
         {slug && (
           <div className="flex">
-            <Check size={18} />
             <Typography style="h5">
               Published, your public link is –
               <Link
@@ -97,11 +97,18 @@ function QuizShowPage() {
             </Typography>
             <Tooltip placement={"bottom"} content={"Copy"}>
               <div>
-                <Copy
-                  size={15}
-                  className="mt-1"
-                  onClick={() => copyToClipBoard(slug)}
-                />
+                {switchIcon ? (
+                  <Copy
+                    size={15}
+                    className="mt-1"
+                    onClick={() => {
+                      copyToClipBoard(slug);
+                      setSwitchIcon(prev => !prev);
+                    }}
+                  />
+                ) : (
+                  <Check size={18} className="text-green-400" />
+                )}
               </div>
             </Tooltip>
           </div>

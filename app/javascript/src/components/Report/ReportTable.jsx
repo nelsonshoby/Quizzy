@@ -34,7 +34,11 @@ function ReportTable({ data }) {
             <tr key={index} {...row.getRowProps()}>
               {row.cells.map((cell, index) => {
                 return (
-                  <td key={index} {...cell.getCellProps()}>
+                  <td
+                    className="text-center"
+                    key={index}
+                    {...cell.getCellProps()}
+                  >
                     {cell.render("Cell")}
                   </td>
                 );

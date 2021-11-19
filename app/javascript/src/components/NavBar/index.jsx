@@ -39,14 +39,21 @@ const NavBar = () => {
             />
             <Button className="ml-4" label={userName} style="text" />
             <Button
-              className="ml-4 mr-8"
+              className="ml-4 mr-8 "
               label="LogOut"
               onClick={handleLogout}
               style="text"
             />
           </div>
         }
-        title={<div className="ml-4">Quizzy</div>}
+        title={
+          <div
+            className="ml-4 cursor-pointer"
+            onClick={() => (window.location.href = "/")}
+          >
+            Quizzy
+          </div>
+        }
       />
     </>
   );

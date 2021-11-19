@@ -28,10 +28,10 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
         <div key={index} className="flex-col mt-8 border-b-2 pb-8">
           <div className="flex justify-between">
             <div className="flex  w-2/5">
-              <Typography style="h3" className="pt-2">
+              <Typography style="h3" className="pt-2 pb-2">
                 Question {index + 1}
               </Typography>
-              <Typography style="h4" className="pt-2 ml-48">
+              <Typography style="h4" className="pt-2 pb-2 ml-48">
                 <div className="pl-6">{question.description}</div>
               </Typography>
             </div>
@@ -59,10 +59,10 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
           <div>
             {question.options.map((option, index) => (
               <div key={index} className="flex w-4/5 ">
-                <Typography style="h4" className="pt-2">
+                <Typography style="h4" className="pt-2 pb-2">
                   Option {index + 1}
                 </Typography>
-                <Typography style="h4" className="pt-2 ml-64">
+                <Typography style="h4" className="pt-2 ml-64 pb-2">
                   <div className="flex">
                     <div>{option.content}</div>
                     {option.result && (

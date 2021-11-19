@@ -38,38 +38,39 @@ const Login = () => {
       <div className="border-b-2">
         <Header title="Quizzy" className="ml-10" />
       </div>
-
-      <div className="flex items-center justify-center mt-20">
-        <div className="w-full max-w-md m-8">
-          <h2
-            className="mt-6 text-3xl font-extrabold leading-9
+      <div className="mx-64">
+        <div className="flex items-center justify-center mt-20 border-gray-100 border-8 mx-64 shadow-xl">
+          <div className="w-full max-w-md m-8">
+            <h2
+              className="mt-6 text-3xl font-extrabold leading-9
             text-center text-bb-gray-700"
-          >
-            Log In
-          </h2>
-          <div className=" text-center">
-            <form onSubmit={handleSubmit}>
-              <Input
-                value={email}
-                label="Email"
-                placeholder="Enter Email"
-                onChange={e => setEmail(e.target.value)}
-              />
-              <Input
-                value={password}
-                type="password"
-                label="Password"
-                placeholder="Enter Password"
-                className="py-4"
-                onChange={e => setPassword(e.target.value)}
-              />
-              <Button
-                type="submit"
-                className="mt-4"
-                label="Submit"
-                style="primary"
-              />
-            </form>
+            >
+              Log In
+            </h2>
+            <div className=" text-center">
+              <form onSubmit={handleSubmit}>
+                <Input
+                  value={email}
+                  label="Email"
+                  placeholder="Enter Email"
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <Input
+                  value={password}
+                  type="password"
+                  label="Password"
+                  placeholder="Enter Password"
+                  className="py-4"
+                  onChange={e => setPassword(e.target.value)}
+                />
+                <Button
+                  type="submit"
+                  className="mt-4"
+                  label="Submit"
+                  style="primary"
+                />
+              </form>
+            </div>
           </div>
         </div>
       </div>

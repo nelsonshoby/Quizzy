@@ -40,7 +40,6 @@ const App = () => {
     <Router>
       <ToastContainer />
       <Switch>
-        <Route exact path="/about" render={() => <div>About</div>} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/quizShowpage/:id/show" component={QuizShowPage} />
         <Route exact path="/CreateQuestion/:id" component={CreateQuestion} />
