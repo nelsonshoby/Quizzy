@@ -17,7 +17,7 @@ import EveRegistration from "./components/EveRegistration";
 import Home from "./components/Home";
 import QuizForm from "./components/QuizForm";
 import QuizShowPage from "./components/QuizShowPage";
-import Report from "./components/Report";
+import Report from "./components/Report/Report";
 import Result from "./components/Result";
 import { getFromLocalStorage } from "./helpers/storage";
 

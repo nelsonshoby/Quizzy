@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class AttemptsController < ApplicationController
-  before_action :authenticate_user_using_x_auth_token
+  before_action :authenticate_user_using_x_auth_token, only: [:index]
   before_action :load_attempt, only: [:update, :show]
+
+  def index
+    @quiz = @current_user.quizzes
+  end
 
   def create
     @attempt = Attempt.find_by(quiz_id: attempt_params[:quiz_id], user_id: attempt_params[:user_id])
