@@ -10,13 +10,13 @@ import { initializeLogger } from "common/logger";
 import PrivateRoute from "components/Common/PrivateRoute";
 import Login from "components/Login";
 
-import CreateQuestion from "./components/CreateQuestion";
-import EditQuestion from "./components/EditQuestion";
 import EveHome from "./components/EveHome";
 import EveRegistration from "./components/EveRegistration";
 import Home from "./components/Home";
+import CreateQuestion from "./components/Question/CreateQuestion";
+import EditQuestion from "./components/Question/EditQuestion";
+import QuizShowPage from "./components/Quiz/QuizShowPage";
 import QuizForm from "./components/QuizForm";
-import QuizShowPage from "./components/QuizShowPage";
 import Report from "./components/Report/Report";
 import Result from "./components/Result";
 import { getFromLocalStorage } from "./helpers/storage";

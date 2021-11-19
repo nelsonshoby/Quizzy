@@ -6,10 +6,9 @@ import { Button } from "@bigbinary/neetoui/v2";
 import { isNil } from "ramda";
 import { Link, useParams } from "react-router-dom";
 
-import NavBar from "./NavBar";
-import QuestionsList from "./QuestionsList";
-
-import quizzesApi from "../apis/quizzes";
+import quizzesApi from "../../apis/quizzes";
+import NavBar from "../NavBar";
+import QuestionsList from "../Question/QuestionsList";
 
 function QuizShowPage() {
   const { id } = useParams();

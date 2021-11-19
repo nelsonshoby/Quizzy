@@ -4,9 +4,8 @@ import { Check } from "@bigbinary/neeto-icons";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 
-import ModalComponent from "./ModalComponent";
-
-import questionApi from "../apis/question";
+import questionApi from "../../apis/question";
+import ModalComponent from "../ModalComponent";
 
 function QuestionsList({ questionData, fetchQuizDetails }) {
   const [showModal, setShowModal] = useState(false);
@@ -27,11 +26,11 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
       {questionData.map((question, index) => (
         <div key={index} className="flex-col mt-8 border-b-2 pb-8">
           <div className="flex justify-between">
-            <div className="flex  w-2/5">
+            <div className="flex ">
               <Typography style="h3" className="pt-2 pb-2">
                 Question {index + 1}
               </Typography>
-              <Typography style="h4" className="pt-2 pb-2 ml-48">
+              <Typography style="h4" className="pt-2  ml-48">
                 <div className="pl-6">{question.description}</div>
               </Typography>
             </div>
@@ -58,15 +57,15 @@ function QuestionsList({ questionData, fetchQuizDetails }) {
           </div>
           <div>
             {question.options.map((option, index) => (
-              <div key={index} className="flex w-4/5 ">
-                <Typography style="h4" className="pt-2 pb-2">
+              <div key={index} className="flex  ">
+                <Typography style="h4" className="pt-2 ">
                   Option {index + 1}
                 </Typography>
-                <Typography style="h4" className="pt-2 ml-64 pb-2">
+                <Typography style="h4" className="pt-2 ml-64 ">
                   <div className="flex">
                     <div>{option.content}</div>
                     {option.result && (
-                      <div className="text-green-400 pl-2 flex">
+                      <div className="text-green-400  flex">
                         <Check size={20} />
                         Correct
                       </div>
