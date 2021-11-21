@@ -20,10 +20,21 @@ class QuestionTest < ActiveSupport::TestCase
       description: "First question",
       quiz_id: @quiz.id
     )
+    @option1 = @question.options.new(
+      content: "welcome"
+    )
+    @option2 = @question.options.new(
+      content: "Home"
+    )
   end
 
   def test_question_valid
     assert @question.valid?
+  end
+
+  def test_option_should_be_valid
+    assert @option1.valid?
+    assert @option2.valid?
   end
 
   def test_question_description_should_not_be_blank

@@ -2,9 +2,7 @@
 
 class ReportExportWorker
   include Sidekiq::Worker
-
   include Sidekiq::Status::Worker
-
   def perform(user_id)
     user = User.find_by(id: user_id)
 

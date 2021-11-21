@@ -53,7 +53,8 @@ function Report() {
     return (
       <div>
         <NavBar />
-        <div className="flex justify-center items-cente mt-64">
+
+        <div className="flex justify-center items-center mt-64">
           <PageLoader text="Your report is being prepared for downloading" />
         </div>
       </div>
@@ -71,12 +72,13 @@ function Report() {
     return (
       <div>
         <NavBar />
-        <div className="flex justify-center items-center mt-64">
+
+        <div className="flex justify-center items-center mt-64 border-gray-100 border-8 mx-64 shadow-xl pb-2 pt-2 ">
           <div className="flex-col">
             <Typography style="h3">Report is now ready to download</Typography>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center ">
               <Button
-                label="Download"
+                label="Download Report"
                 style="secondary"
                 className="mt-4"
                 onClick={() => download()}
