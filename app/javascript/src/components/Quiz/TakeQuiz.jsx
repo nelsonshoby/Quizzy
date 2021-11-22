@@ -54,7 +54,7 @@ function TakeQuiz({ quizData, userId, id }) {
           <>
             <div key={index} className="flex mt-8 bg-gray-100 rounded-md p-2">
               <Typography style="h3" className="ml-2">
-                Question {index}
+                Question {index + 1}
               </Typography>
               <Typography style="h4" className="ml-48">
                 {question.description}
