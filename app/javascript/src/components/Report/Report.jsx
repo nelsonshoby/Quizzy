@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { Download } from "@bigbinary/neeto-icons";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { PageLoader } from "@bigbinary/neetoui/v2";
@@ -53,7 +54,6 @@ function Report() {
     return (
       <div>
         <NavBar />
-
         <div className="flex justify-center items-center mt-64">
           <PageLoader text="Your report is being prepared for downloading" />
         </div>
@@ -72,14 +72,15 @@ function Report() {
     return (
       <div>
         <NavBar />
-
         <div className="flex justify-center items-center mt-64 border-gray-100 border-8 mx-64 shadow-xl pb-2 pt-2 ">
           <div className="flex-col">
             <Typography style="h3">Report is now ready to download</Typography>
             <div className="flex justify-center items-center ">
               <Button
                 label="Download Report"
+                icon={Download}
                 style="secondary"
+                iconPosition="left"
                 className="mt-4"
                 onClick={() => download()}
               />
@@ -93,20 +94,28 @@ function Report() {
   return (
     <div>
       <NavBar />
-      <div className="mx-24 mt-8">
-        <Header
-          actionBlock={
-            <Button
-              label="Download"
-              style="secondary"
-              onClick={() => handelDownload()}
-            />
-          }
-          title="Reports"
-        />
+      {reportData.length != 0 ? (
+        <div className="mx-24 mt-8">
+          <Header
+            actionBlock={
+              <Button
+                label="Download"
+                icon={Download}
+                style="secondary"
+                iconPosition="left"
+                onClick={() => handelDownload()}
+              />
+            }
+            title="Reports"
+          />
 
-        <ReportTable data={reportData} />
-      </div>
+          <ReportTable data={reportData} />
+        </div>
+      ) : (
+        <div className="flex justify-center items-center mt-64">
+          <Typography style="h3">No reports available</Typography>
+        </div>
+      )}
     </div>
   );
 }

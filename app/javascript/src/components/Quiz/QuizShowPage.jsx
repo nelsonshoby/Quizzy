@@ -89,7 +89,7 @@ function QuizShowPage() {
                 to={{
                   pathname: `/public/${slug}`,
                 }}
-                className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+                className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600 ml-1"
               >
                 {window.location.origin + "/public/" + slug}
               </Link>
@@ -99,14 +99,14 @@ function QuizShowPage() {
                 {switchIcon ? (
                   <Copy
                     size={15}
-                    className="mt-1"
+                    className="mt-1 ml-1"
                     onClick={() => {
                       copyToClipBoard(slug);
                       setSwitchIcon(prev => !prev);
                     }}
                   />
                 ) : (
-                  <Check size={18} className="text-green-400" />
+                  <Check size={18} className="text-green-400 ml-1" />
                 )}
               </div>
             </Tooltip>
