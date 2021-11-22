@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { PageLoader } from "@bigbinary/neetoui/v2";
 import { either, isEmpty, isNil } from "ramda";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -33,7 +34,11 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
   }
 
   loading;

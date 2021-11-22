@@ -21,7 +21,6 @@ function Home() {
   useEffect(() => {
     fetchQuiz();
   }, []);
-
   return (
     <div>
       <NavBar />
