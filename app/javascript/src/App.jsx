@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { PageLoader } from "@bigbinary/neetoui/v2";
 import { either, isEmpty, isNil } from "ramda";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -10,6 +11,7 @@ import { initializeLogger } from "common/logger";
 import PrivateRoute from "components/Common/PrivateRoute";
 import Login from "components/Login";
 
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import EveHome from "./components/EveHome";
 import EveRegistration from "./components/EveRegistration";
 import Home from "./components/Home";
@@ -32,38 +34,44 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
   }
 
   loading;
   return (
     <Router>
-      <ToastContainer />
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/quizShowpage/:id/show" component={QuizShowPage} />
-        <Route exact path="/CreateQuestion/:id" component={CreateQuestion} />
-        <Route exact path="/EditQuestion/:id" component={EditQuestion} />
-        <Route exact path="/public/:slug" component={EveHome} />
-        <Route exact path="/quiz/new" component={QuizForm} />
-        <Route exact path="/quiz/report" component={Report} />
-        <Route
-          exact
-          path="/public/:slug/:attemptId/result"
-          component={Result}
-        />
-        <Route
-          exact
-          path="/public/:slug/attempts/new"
-          component={EveRegistration}
-        />
-        <PrivateRoute
-          path="/"
-          redirectRoute="/login"
-          condition={isLoggedIn}
-          component={Home}
-        />
-      </Switch>
+      <ErrorBoundary>
+        <ToastContainer />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/quizShowpage/:id/show" component={QuizShowPage} />
+          <Route exact path="/CreateQuestion/:id" component={CreateQuestion} />
+          <Route exact path="/EditQuestion/:id" component={EditQuestion} />
+          <Route exact path="/public/:slug" component={EveHome} />
+          <Route exact path="/quiz/new" component={QuizForm} />
+          <Route exact path="/quiz/report" component={Report} />
+          <Route
+            exact
+            path="/public/:slug/:attemptId/result"
+            component={Result}
+          />
+          <Route
+            exact
+            path="/public/:slug/attempts/new"
+            component={EveRegistration}
+          />
+          <PrivateRoute
+            path="/"
+            redirectRoute="/login"
+            condition={isLoggedIn}
+            component={Home}
+          />
+        </Switch>
+      </ErrorBoundary>
     </Router>
   );
 };

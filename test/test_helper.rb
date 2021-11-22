@@ -4,6 +4,13 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+def headers(user, options = {})
+  {
+    "X-Auth-Token" => user.authentication_token,
+    "X-Auth-Email" => user.email
+  }.merge(options)
+end
+
 class ActiveSupport::TestCase
   include ActionView::Helpers::TranslationHelper
   # Run tests in parallel with specified workers

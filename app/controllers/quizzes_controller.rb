@@ -83,7 +83,7 @@ class QuizzesController < ApplicationController
     def load_quiz
       @quiz = Quiz.find_by(id: params[:id])
       unless @quiz
-        render status: :not_found, json: { error: t("Error while creating slug") }
+        render status: :not_found, json: { error: t("error_while_creating_slug") }
       end
     end
 
