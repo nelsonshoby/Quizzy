@@ -20,8 +20,8 @@ function EditQuestion() {
   const fetchQuizDetails = async () => {
     try {
       const response = await questionApi.show(id);
-      setTitle(response.data.question.description);
-      setQuestion(response.data.question.quiz);
+      setQuestion(response.data.question.description);
+      setTitle(response.data.question.quiz);
       setQuizId(response.data.question.quiz_id);
       setOption(response.data.question.options.length);
       const ans = response.data.question.options.reduce((acc, element) => {
