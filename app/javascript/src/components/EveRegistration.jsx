@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Typography } from "@bigbinary/neetoui/v2";
-import { PageLoader } from "@bigbinary/neetoui/v2";
+// import { PageLoader } from "@bigbinary/neetoui/v2";
 import { Header } from "@bigbinary/neetoui/v2/layouts";
 import Logger from "js-logger";
 import { isNil } from "ramda";
@@ -31,6 +31,7 @@ function EveRegistration() {
     setLoading(true);
     const response = await quizzesApi.showSlugHeader(slug);
     Logger.warn("response is", response);
+    Logger.warn("loading", loading);
     setQuizData(response.data);
     Logger.warn(quizData);
     setQuizId(response.data.quiz.id);
@@ -53,6 +54,8 @@ function EveRegistration() {
           password_confirmation: "welcome",
         },
       });
+      localStorage.setItem("email", email);
+
       setId(response.data.user);
 
       const attemptData = await attemptApi.create({
@@ -68,13 +71,13 @@ function EveRegistration() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center mt-64">
-        <PageLoader text="Loading..." />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center mt-64">
+  //       <PageLoader text="Loading..." />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>

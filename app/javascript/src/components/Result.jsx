@@ -35,9 +35,16 @@ function Result() {
 
   const fetchAttemptData = async () => {
     const attemptdata = await attemptApi.show(attemptId);
-
     setCorrectData(attemptdata.data.quiz.questions);
     setAttemptData(attemptdata.data.attempt.answers);
+    if (
+      !(
+        attemptdata.data.attempt.answers[0].user ===
+        localStorage.getItem("email")
+      )
+    ) {
+      window.location.href = `/public/${slug}/attempts/new`;
+    }
   };
 
   useEffect(() => {

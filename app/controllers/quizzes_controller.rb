@@ -80,8 +80,10 @@ class QuizzesController < ApplicationController
 
   def show_slug_header
     @quiz = Quiz.find_by(slug: params[:slug])
-    unless @quiz
-      render status: :not_found, json: { error: t("quiz_does_not_exist") }
+    if @quiz
+      render
+    else
+      render status: :unprocessable_entity, json: { error: t("quiz_does_not_exist") }
     end
   end
 
