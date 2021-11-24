@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { isNil } from "ramda";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -15,7 +16,7 @@ function EditQuestion() {
   const [deletedOptions, setDeletedOptions] = useState([]);
   const [quizId, setQuizId] = useState(null);
   const { id } = useParams();
-  const [answer, setAnswer] = useState(null);
+  const [answer, setAnswer] = useState();
   const [optionsObject, setOptionsObject] = useState([]);
   const fetchQuizDetails = async () => {
     try {
@@ -49,7 +50,9 @@ function EditQuestion() {
     setQuestion(question.trim());
     if (arraySize != setSize) {
       toast.error("Options cant be same", TOASTR_OPTIONS);
-    } else if (question.length != 0 && answer.length != 0) {
+    } else if (isNil(answer)) {
+      toast.error("Select an answer", TOASTR_OPTIONS);
+    } else if (question.length != 0) {
       const optionsObjectWithId = optionsObject.map((ele, index) => ({
         id: optionId[index],
         content: ele,

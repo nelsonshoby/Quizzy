@@ -13,7 +13,7 @@ function EveHome() {
   const [validSlug, setSlug] = useState();
 
   const fetchData = async () => {
-    const response = await quizzesApi.showSlug(slug);
+    const response = await quizzesApi.showSlugHeader(slug);
     setSlug(response.data.quiz.id);
   };
   useEffect(() => {
