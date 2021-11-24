@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
-  before_action :authenticate_user_using_x_auth_token, except: [:show_slug]
+  before_action :authenticate_user_using_x_auth_token, except: [:show_slug, :show_slug_header]
   before_action :load_quiz, only: [:show, :set_slug]
 
   def index
@@ -74,7 +74,14 @@ class QuizzesController < ApplicationController
   def show_slug
     @quiz = Quiz.find_by(slug: params[:slug])
     unless @quiz
-      render status: :not_found, json: { error: t("slug_does_not_exist") }
+      render status: :not_found, json: { error: t("quiz_does_not_exist") }
+    end
+  end
+
+  def show_slug_header
+    @quiz = Quiz.find_by(slug: params[:slug])
+    unless @quiz
+      render status: :not_found, json: { error: t("quiz_does_not_exist") }
     end
   end
 

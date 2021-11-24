@@ -21,14 +21,15 @@ function EveRegistration() {
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [id, setId] = useState();
-  const [quizData, setQuizData] = useState("");
   const [quizId, setQuizId] = useState();
   const [attempt, setAttempt] = useState();
+  const [quizData, setQuizData] = useState("");
 
   const fetchData = async () => {
-    const response = await quizzesApi.showSlug(slug);
-
+    const response = await quizzesApi.showSlugHeader(slug);
+    Logger.warn("response is", response);
     setQuizData(response.data);
+    Logger.warn(quizData);
     setQuizId(response.data.quiz.id);
     setTitle(response.data.quiz.name);
   };
@@ -96,6 +97,7 @@ function EveRegistration() {
                   />
                   <Input
                     label="Email"
+                    type="email"
                     value={email}
                     required="required"
                     onChange={e => setEmail(e.target.value)}
@@ -114,7 +116,7 @@ function EveRegistration() {
           </div>
         </div>
       ) : (
-        <TakeQuiz quizData={quizData} userId={id} id={attempt} />
+        <TakeQuiz userId={id} id={attempt} />
       )}
     </div>
   );

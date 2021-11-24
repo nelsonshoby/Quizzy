@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { isNil } from "ramda";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -55,6 +56,8 @@ function CreateQuestion() {
     setQuestion(question.trim());
     if (arraySize != setSize) {
       toast.error("Options cant be same", TOASTR_OPTIONS);
+    } else if (isNil(answer)) {
+      toast.error("Select an answer", TOASTR_OPTIONS);
     } else if (question.length != 0 && answer.length != 0) {
       const output = optionsObject.map(ele => ({
         content: ele,

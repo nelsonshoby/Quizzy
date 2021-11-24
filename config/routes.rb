@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   get "quizzes/setSlug/:id", to: "quizzes#set_slug"
   get "quizzes/showSlug/:slug", to: "quizzes#show_slug"
+  get "quizzes/showSlugHeader/:slug", to: "quizzes#show_slug_header"
 
   get "/export" => "users#export"
   get "/export_status/:job_id", to: "users#export_status"

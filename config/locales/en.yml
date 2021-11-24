@@ -5,6 +5,6 @@ en:
   successfully_destroyed: "%{entity} was successfully deleted!"
   successfully_created: "%{entity} was successfully created!"
   access_denied: "Access denied. You are not authorized to perform this action."
-  slug_does_not_exist: "Slug does not exist"
+  quiz_does_not_exist: "Quiz does not exist"
   successfully_submitted: "%{entity} successfully submitted!"
   error_while_creating_slug: "Question does not exist"
