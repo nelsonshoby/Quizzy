@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Plus } from "@bigbinary/neeto-icons";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Typography } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 
 import NavBar from "./NavBar";
 
@@ -11,16 +12,28 @@ import Table from "../components/Table/Table";
 
 function Home() {
   const [quiz, setQuiz] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchQuiz = async () => {
+    setLoading(true);
     const response = await quizzesApi.index();
     const quizData = await response.data;
     setQuiz(quizData.quiz);
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchQuiz();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
+  }
+
   return (
     <div>
       <NavBar />

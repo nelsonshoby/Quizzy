@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Typography } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 import { Header } from "@bigbinary/neetoui/v2/layouts";
 import Logger from "js-logger";
 import { isNil } from "ramda";
@@ -24,14 +25,17 @@ function EveRegistration() {
   const [quizId, setQuizId] = useState();
   const [attempt, setAttempt] = useState();
   const [quizData, setQuizData] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
+    setLoading(true);
     const response = await quizzesApi.showSlugHeader(slug);
     Logger.warn("response is", response);
     setQuizData(response.data);
     Logger.warn(quizData);
     setQuizId(response.data.quiz.id);
     setTitle(response.data.quiz.name);
+    setLoading(false);
   };
   useEffect(() => {
     fetchData();
@@ -63,6 +67,14 @@ function EveRegistration() {
       Logger.error(error);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
+  }
 
   return (
     <div>

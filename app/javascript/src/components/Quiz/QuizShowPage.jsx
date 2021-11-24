@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Check, Copy, Plus } from "@bigbinary/neeto-icons";
 import { Tooltip, Typography } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 import { isNil } from "ramda";
 import { Link, useParams } from "react-router-dom";
 
@@ -16,6 +17,7 @@ function QuizShowPage() {
   const [questionData, setQuestionData] = useState([]);
   const [slug, setSlug] = useState("");
   const [switchIcon, setSwitchIcon] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const createSlug = async () => {
     try {
@@ -28,12 +30,15 @@ function QuizShowPage() {
 
   const fetchQuizDetails = async () => {
     try {
+      setLoading(true);
       const response = await quizzesApi.show(id);
       setSlug(response.data.quiz.slug);
       setQuestionData(response.data.quiz.questions);
       setTitle(response.data.quiz.name);
+      setLoading(false);
     } catch (error) {
       logger.error(error);
+      setLoading(false);
     }
   };
 
@@ -49,6 +54,14 @@ function QuizShowPage() {
   useEffect(() => {
     fetchQuizDetails();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
+  }
 
   return (
     <div>
