@@ -16,15 +16,19 @@ import NavBar from "../NavBar";
 function Report() {
   const [reportData, setReportData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
   const [pageLoader, setPageLoader] = useState(false);
   const [jobId, setJobId] = useState();
   const fetchAttempt = async () => {
     try {
+      setDataLoading(true);
       const response = await attemptApi.index();
       const data = flatten(response.data.attempt.quiz.map(ele => ele.report));
       setReportData(data);
+      setDataLoading(false);
     } catch (error) {
       logger.error(error);
+      setDataLoading(false);
     }
   };
 
@@ -49,6 +53,14 @@ function Report() {
   useEffect(() => {
     fetchAttempt();
   }, []);
+
+  if (dataLoading) {
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
+  }
 
   if (loading) {
     return (

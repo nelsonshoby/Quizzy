@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@bigbinary/neetoui/v2";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { Radio } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { useParams } from "react-router";
 
@@ -12,12 +13,15 @@ import quizzesApi from "../../apis/quizzes";
 function TakeQuiz({ userId, id }) {
   const [answer, setAnswer] = useState({});
   const [quizData, setQuizData] = useState("");
+  const [loading, setLoading] = useState(false);
   const { slug } = useParams(slug);
   Logger.warn("slug is", slug);
 
   const fetchData = async () => {
+    setLoading(true);
     const response = await quizzesApi.showSlug(slug);
     setQuizData(response.data);
+    setLoading(false);
   };
   useEffect(() => {
     fetchData();
@@ -53,6 +57,14 @@ function TakeQuiz({ userId, id }) {
     const attemptId = response.data.attempt;
     window.location.href = `/public/${slug}/${attemptId}/result`;
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
+  }
 
   return (
     <div>
